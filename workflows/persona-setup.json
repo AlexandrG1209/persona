@@ -1,0 +1,200 @@
+{
+  "name": "Persona Setup",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4b58a3e8-72ce-4766-8392-c0c9aec99db5",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "table",
+        "operation": "create",
+        "tableName": "persona_users",
+        "columns": {
+          "column": [
+            {
+              "name": "user_id"
+            },
+            {
+              "name": "username_normalized"
+            },
+            {
+              "name": "username_display"
+            },
+            {
+              "name": "password_salt"
+            },
+            {
+              "name": "password_hash"
+            },
+            {
+              "name": "email"
+            },
+            {
+              "name": "topics_json"
+            },
+            {
+              "name": "send_time"
+            },
+            {
+              "name": "timezone"
+            },
+            {
+              "name": "newsletter_status"
+            },
+            {
+              "name": "consent_at"
+            },
+            {
+              "name": "failed_login_count",
+              "type": "number"
+            },
+            {
+              "name": "locked_until"
+            },
+            {
+              "name": "created_at"
+            },
+            {
+              "name": "updated_at"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "9daf2018-4c0c-4477-bb36-4d95b98fa368",
+      "name": "Create a data table",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "table",
+        "operation": "create",
+        "tableName": "persona_sessions",
+        "columns": {
+          "column": [
+            {
+              "name": "session_id"
+            },
+            {
+              "name": "user_id"
+            },
+            {
+              "name": "state"
+            },
+            {
+              "name": "pending_json"
+            },
+            {
+              "name": "created_at"
+            },
+            {
+              "name": "last_seen_at"
+            },
+            {
+              "name": "expires_at"
+            },
+            {
+              "name": "authenticated",
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        0
+      ],
+      "id": "5f148a50-7be5-4c9d-b89b-c3700cbe5130",
+      "name": "creating persona_sessions",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "04346699-3fef-4bf4-a66b-f9e61a5221ad",
+              "name": "setup_status",
+              "value": "ready",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        672,
+        0
+      ],
+      "id": "89f33fac-3b43-4a07-9f3b-7e6ed6ccea55",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Create a data table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a data table": {
+      "main": [
+        [
+          {
+            "node": "creating persona_sessions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "creating persona_sessions": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "fd16a4c0-5df0-48fd-8cb5-4d35a04582f7",
+  "meta": {
+    "instanceId": "e9b51ccfda4c94a4db2c09599989fffc064078511bb3a866408c706da5407b1b"
+  },
+  "nodeGroups": [],
+  "id": "KmfWCyTVNLIWUyO5",
+  "tags": []
+}
