@@ -12,8 +12,8 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.5,
       "position": [
-        0,
-        0
+        -208,
+        -32
       ],
       "id": "2ffc5cc0-c1e5-4357-8021-195fbd75043a",
       "name": "When chat message received",
@@ -49,13 +49,14 @@
             }
           ]
         },
+        "includeOtherFields": true,
         "options": {}
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.5,
       "position": [
-        224,
-        0
+        -48,
+        -32
       ],
       "id": "aba0a7e0-7151-428c-96d9-f08c3ac7e39d",
       "name": "Normalize Input"
@@ -372,8 +373,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.5,
       "position": [
-        448,
-        0
+        1392,
+        -48
       ],
       "id": "3593f0d8-5bde-468a-b2c0-7cfd6ebe033a",
       "name": "Route Command"
@@ -386,8 +387,8 @@
       "type": "@n8n/n8n-nodes-langchain.chat",
       "typeVersion": 1.3,
       "position": [
-        672,
-        0
+        1616,
+        -48
       ],
       "id": "2313cb7c-7848-437f-8467-07da96cb5408",
       "name": "Reply help",
@@ -401,12 +402,870 @@
       "type": "@n8n/n8n-nodes-langchain.chat",
       "typeVersion": 1.3,
       "position": [
-        720,
-        144
+        1664,
+        96
       ],
       "id": "2f459b25-fa49-4331-89d0-644e29017a2f",
       "name": "Reply - Unknown Command",
       "webhookId": "c53479cd-5b79-464e-a362-ac8f91a7261c"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "keyValue": "={{ $json.session_id }}"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        144,
+        -32
+      ],
+      "id": "48518911-da06-4d8a-94fe-ed0b33fd7f67",
+      "name": "Get Session",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3f4ab485-af10-4cc8-ab69-5e943e12c7de",
+              "name": "=session_id",
+              "value": "={{ $('Normalize Input').item.json.session_id }}",
+              "type": "string"
+            },
+            {
+              "id": "a74af7ec-d2ed-4d6a-8deb-59b454e228b4",
+              "name": "=raw_input",
+              "value": "={{ $('Normalize Input').item.json.raw_input }}",
+              "type": "string"
+            },
+            {
+              "id": "9a23866a-c6f8-4d19-8cdb-bd7408330575",
+              "name": "=command",
+              "value": "={{ $('Normalize Input').item.json.command }}",
+              "type": "string"
+            },
+            {
+              "id": "a5fcb3ee-ea6f-4ad9-87dc-f396ee009c31",
+              "name": "=now_iso",
+              "value": "={{ $('Normalize Input').item.json.now_iso }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        336,
+        -16
+      ],
+      "id": "cd13d988-4621-4443-ac37-20e24c53f9aa",
+      "name": "Build session context"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "f64752c5-b04a-4c25-b089-c0a9bdf09146",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        512,
+        -16
+      ],
+      "id": "ee493b5c-abaf-4c27-b373-ec8eb2557845",
+      "name": "Session Exists?"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "authenticated": false,
+            "session_id": "={{ $json.session_id }}",
+            "state": "idle",
+            "pending_json": "{}",
+            "created_at": "={{ $now.toISO() }}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({ minutes: 60 }).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        512,
+        256
+      ],
+      "id": "04ff1717-1531-46ff-8c4a-519a453cbf52",
+      "name": "Create Session"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a86f3375-6c05-4165-9092-5fe69931d9f2",
+              "name": "=session_id",
+              "value": "={{ $('Normalize Input').item.json.session_id }}",
+              "type": "string"
+            },
+            {
+              "id": "e3452689-bdad-466f-8b2b-4a0a92f2433c",
+              "name": "=raw_input",
+              "value": "={{ $('Normalize Input').item.json.raw_input }}",
+              "type": "string"
+            },
+            {
+              "id": "f678c3cb-a483-4d7c-9930-cf680a36b42a",
+              "name": "=command",
+              "value": "={{ $('Normalize Input').item.json.command }}",
+              "type": "string"
+            },
+            {
+              "id": "79e843df-03b9-485f-8efb-cb08ed8ef71a",
+              "name": "=now_iso",
+              "value": "={{ $('Normalize Input').item.json.now_iso }}\n",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        736,
+        144
+      ],
+      "id": "90d1b294-1736-4c2d-8360-fafe719a0812",
+      "name": "Build New Session Context"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "keyValue": "={{ $json.session_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "authenticated": false,
+            "state": "idle",
+            "pending_json": "{}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({minutes:60}).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1248,
+        -160
+      ],
+      "id": "a48f25cb-6284-408f-af03-7b677bd845e4",
+      "name": "Cancel Session State"
+    },
+    {
+      "parameters": {
+        "message": "Current action cancelled.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        1456,
+        -176
+      ],
+      "id": "e91375f2-85de-4773-9421-ef8a4b190749",
+      "name": "Reply - Cancelled",
+      "webhookId": "751406da-f180-4e59-82e3-e5440c7a5dc3"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.command }}",
+                    "rightValue": "cancel",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "73d2694a-c2c3-43f9-84c4-5a49955846ec"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "cancel"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "913f5830-90e5-4f22-b5f0-433d4bc147bf",
+                    "leftValue": "={{ $json.state }}",
+                    "rightValue": "register_username",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "register_username"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "f04c12d5-ea37-4bad-9cc8-293ec0908843",
+                    "leftValue": "={{ $json.state }}",
+                    "rightValue": "register_password",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "register_password"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "5c5f06e5-72e0-4878-8485-9c70af85a22e",
+                    "leftValue": "={{ $json.state }}",
+                    "rightValue": "register_email",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "register_email"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "8bb6f3a3-34cd-4693-bc65-1f7a705e00d3",
+                    "leftValue": "={{ $json.state }}",
+                    "rightValue": "register_topics",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "register_topics"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "23fc07ac-e173-4bea-a465-3545a168b5d4",
+                    "leftValue": "={{ $json.state }}",
+                    "rightValue": "register_time",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "register_time"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "33e7b8b4-bd23-4348-908a-1ccdbdc0dff6",
+                    "leftValue": "={{ $json.state }}",
+                    "rightValue": "register_timezone",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "register_timezone"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "896fd64b-b796-4438-94fb-b5997ef62857",
+                    "leftValue": "={{ $json.state }}",
+                    "rightValue": "register_consent",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "register_consent"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "0fd55563-d155-42da-be20-d78793a50ba2",
+                    "leftValue": "={{ $json.state }}",
+                    "rightValue": "login_username",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "login_username"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "805fe640-0488-44fc-8798-30d509071d7c",
+                    "leftValue": "={{ $json.state }}",
+                    "rightValue": "login_password",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "login_password"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "6ae6032c-ec2b-4c34-abb5-62f278d5e5f6",
+                    "leftValue": "={{ $json.state }}",
+                    "rightValue": "idle",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "idle"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.5,
+      "position": [
+        1008,
+        32
+      ],
+      "id": "06a634dc-6cfc-4c01-bbae-1c694dc7b86d",
+      "name": "route sessin state"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "7d68ded5-4a79-4e7e-9a38-15cfbd3aa625",
+              "leftValue": "={{ $json.expires_at }}",
+              "rightValue": "={{ $now.toISO() }}",
+              "operator": {
+                "type": "dateTime",
+                "operation": "before"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        512,
+        -208
+      ],
+      "id": "cc2fe5f0-b0bd-4fd3-a67d-a0562d1b3639",
+      "name": "Session Expired?"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "=session_id",
+              "keyValue": "={{ $json.session_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "authenticated": false,
+            "state": "idle",
+            "pending_json": "{}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({ minutes: 60 }).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        -224
+      ],
+      "id": "7a2a983b-df9e-4113-977e-8827431875c8",
+      "name": "Reset Expired Session"
     }
   ],
   "pinData": {},
@@ -426,7 +1285,7 @@
       "main": [
         [
           {
-            "node": "Route Command",
+            "node": "Get Session",
             "type": "main",
             "index": 0
           }
@@ -461,6 +1320,141 @@
           }
         ]
       ]
+    },
+    "Get Session": {
+      "main": [
+        [
+          {
+            "node": "Build session context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build session context": {
+      "main": [
+        [
+          {
+            "node": "Session Exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Session Exists?": {
+      "main": [
+        [
+          {
+            "node": "Session Expired?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Session": {
+      "main": [
+        [
+          {
+            "node": "Build New Session Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build New Session Context": {
+      "main": [
+        [
+          {
+            "node": "route sessin state",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancel Session State": {
+      "main": [
+        [
+          {
+            "node": "Reply - Cancelled",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "route sessin state": {
+      "main": [
+        [
+          {
+            "node": "Cancel Session State",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Route Command",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          {
+            "node": "Route Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Session Expired?": {
+      "main": [
+        [
+          {
+            "node": "Reset Expired Session",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "route sessin state",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reset Expired Session": {
+      "main": [
+        [
+          {
+            "node": "Build New Session Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -468,7 +1462,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "dcfa8b90-eeea-4cea-af85-f7e59ad880e6",
+  "versionId": "76cb9cde-ed0a-476c-81ca-c6f967ccccf0",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "e9b51ccfda4c94a4db2c09599989fffc064078511bb3a866408c706da5407b1b"
