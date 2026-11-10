@@ -373,8 +373,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.5,
       "position": [
-        2112,
-        128
+        3088,
+        96
       ],
       "id": "3593f0d8-5bde-468a-b2c0-7cfd6ebe033a",
       "name": "Route Command"
@@ -387,8 +387,8 @@
       "type": "@n8n/n8n-nodes-langchain.chat",
       "typeVersion": 1.3,
       "position": [
-        2224,
-        -528
+        3200,
+        -560
       ],
       "id": "2313cb7c-7848-437f-8467-07da96cb5408",
       "name": "Reply help",
@@ -402,8 +402,8 @@
       "type": "@n8n/n8n-nodes-langchain.chat",
       "typeVersion": 1.3,
       "position": [
-        2384,
-        272
+        3360,
+        240
       ],
       "id": "2f459b25-fa49-4331-89d0-644e29017a2f",
       "name": "Reply - Unknown Command",
@@ -795,8 +795,8 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1.1,
       "position": [
-        1376,
-        -1552
+        1584,
+        -2240
       ],
       "id": "a48f25cb-6284-408f-af03-7b677bd845e4",
       "name": "Cancel Session State"
@@ -809,8 +809,8 @@
       "type": "@n8n/n8n-nodes-langchain.chat",
       "typeVersion": 1.3,
       "position": [
-        1376,
-        -1664
+        1584,
+        -2352
       ],
       "id": "e91375f2-85de-4773-9421-ef8a4b190749",
       "name": "Reply - Cancelled",
@@ -1386,8 +1386,8 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1.1,
       "position": [
-        2384,
-        -336
+        3360,
+        -368
       ],
       "id": "c493041c-6ce0-437f-a3bd-27c6537f95e9",
       "name": "Start Registration"
@@ -1400,8 +1400,8 @@
       "type": "@n8n/n8n-nodes-langchain.chat",
       "typeVersion": 1.3,
       "position": [
-        2608,
-        -384
+        3584,
+        -416
       ],
       "id": "07fb7c38-9371-45a5-bc8d-d85f21c3e946",
       "name": "Reply - Registration Username",
@@ -1431,8 +1431,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.5,
       "position": [
-        1472,
-        -256
+        1664,
+        -1776
       ],
       "id": "da76b4e0-1b50-4b10-8eea-a748b1412078",
       "name": "Prepare Username"
@@ -1461,8 +1461,8 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1.1,
       "position": [
-        1488,
-        -400
+        1680,
+        -1920
       ],
       "id": "5f8e5149-e0ab-4202-b44a-9eaedd1de667",
       "name": "Check Username",
@@ -1509,8 +1509,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.5,
       "position": [
-        1632,
-        -400
+        1824,
+        -1920
       ],
       "id": "73cb23a6-dbfd-4dad-afe8-5fbbd8fd6860",
       "name": "Build Username Context"
@@ -1544,8 +1544,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.4,
       "position": [
-        1664,
-        -224
+        1856,
+        -1744
       ],
       "id": "28c33175-b643-4adb-89b3-927e8802dc2d",
       "name": "Username Exists?"
@@ -1558,8 +1558,8 @@
       "type": "@n8n/n8n-nodes-langchain.chat",
       "typeVersion": 1.3,
       "position": [
-        1824,
-        -432
+        2016,
+        -1952
       ],
       "id": "c22a9eaa-8968-45fe-951b-73d5c0809427",
       "name": "Reply - Username Already Exists",
@@ -1684,8 +1684,8 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1.1,
       "position": [
-        1856,
-        -240
+        2048,
+        -1760
       ],
       "id": "99c48717-3c14-46ad-95c8-64764d40dbd5",
       "name": "Save Registration Username"
@@ -1698,8 +1698,8 @@
       "type": "@n8n/n8n-nodes-langchain.chat",
       "typeVersion": 1.3,
       "position": [
-        2016,
-        -240
+        2208,
+        -1760
       ],
       "id": "cc476916-a98f-41ca-abe0-eeebf849ed02",
       "name": "Reply - Registration Password",
@@ -1732,8 +1732,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.4,
       "position": [
-        1456,
-        16
+        1664,
+        -1472
       ],
       "id": "77e6938a-d09c-48e6-8bd9-9c457b4a7b87",
       "name": "Password Valid?"
@@ -1746,8 +1746,8 @@
       "type": "@n8n/n8n-nodes-langchain.chat",
       "typeVersion": 1.3,
       "position": [
-        1600,
-        96
+        1808,
+        -1392
       ],
       "id": "48f32ee8-ef48-4cf1-b9f5-a2df00037c88",
       "name": "Reply - Password Too Short",
@@ -1762,8 +1762,8 @@
       "type": "n8n-nodes-base.crypto",
       "typeVersion": 2,
       "position": [
-        1632,
-        -64
+        1840,
+        -1552
       ],
       "id": "f2ec34a0-7565-4571-8b8a-864a17bbfbb1",
       "name": "Generate Password Salt"
@@ -1777,8 +1777,8 @@
       "type": "n8n-nodes-base.crypto",
       "typeVersion": 2,
       "position": [
-        1760,
-        -64
+        1968,
+        -1552
       ],
       "id": "c32fac20-0075-42b0-84c7-3dd9c0f32617",
       "name": "Hash Registration Password",
@@ -1908,8 +1908,8 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1.1,
       "position": [
-        1888,
-        -64
+        2096,
+        -1552
       ],
       "id": "2bbc8de1-21c0-40c9-b90b-ef8666e257d6",
       "name": "Save Password Hash"
@@ -1922,12 +1922,2889 @@
       "type": "@n8n/n8n-nodes-langchain.chat",
       "typeVersion": 1.3,
       "position": [
-        2016,
-        -64
+        2224,
+        -1552
       ],
       "id": "e798d6e4-1eb8-4635-9231-c3059e04af55",
       "name": "Reply - Registration Email",
       "webhookId": "342aa0da-88dd-49a3-8912-0b5e7ea22f02"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "43f20b4c-8ab5-4371-a4bb-955a61b1223e",
+              "leftValue": "={{ /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test($json.raw_input.trim()) }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        1648,
+        -1200
+      ],
+      "id": "57dbbfce-bd2c-49fb-ac01-efb70aeb63c9",
+      "name": "Email Valid?"
+    },
+    {
+      "parameters": {
+        "message": "Invalid email format. Try again or type \"cancel\".",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        1760,
+        -1072
+      ],
+      "id": "11ca41b9-94d3-45eb-963e-8c5be1e1e489",
+      "name": "Reply - Invalid Email",
+      "webhookId": "a441d0cb-abfd-4d83-97b7-f75451e28bc8"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "keyValue": "={{ $json.session_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "authenticated": false,
+            "state": "register_topics",
+            "pending_json": "={{ JSON.stringify({   ...JSON.parse($json.pending_json || '{}'),   email: $json.raw_input.trim().toLowerCase() }) }}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({ minutes: 60 }).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1808,
+        -1216
+      ],
+      "id": "54c04a0e-aacd-47ca-b3d5-5c70020e4143",
+      "name": "Save Registration Email"
+    },
+    {
+      "parameters": {
+        "message": "Enter your topics separated by commas, for example: technology, science, business. Type \"cancel\" to stop.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        1952,
+        -1232
+      ],
+      "id": "4bc34a28-c0ef-4d76-b0da-b6e6a5f2b836",
+      "name": "Reply - Registration Topics",
+      "webhookId": "1718fb72-a09c-44e7-9666-86d659e07f3d"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "346593ab-18d2-4960-b5c8-6513265b23e0",
+              "name": "=topics_json",
+              "value": "={{ JSON.stringify(   [...new Set(     $json.raw_input       .split(',')       .map(topic => topic.trim().toLowerCase())       .filter(Boolean)   )] ) }}",
+              "type": "string"
+            },
+            {
+              "id": "057ecb10-2416-4235-9bd7-b45f18a29779",
+              "name": "=topics_count",
+              "value": "={{ $json.raw_input.split(',').map(topic => topic.trim()).filter(Boolean).length }}",
+              "type": "number"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1664,
+        -912
+      ],
+      "id": "e01e5a28-f247-42cb-95b3-21ba9ba2c158",
+      "name": "Prepare Topics"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "9c12acb4-9f63-4c75-81cc-43e04f139970",
+              "leftValue": "={{ $json.topics_count }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        1808,
+        -912
+      ],
+      "id": "01c44e24-d24d-4e33-86e8-c63929c9d41f",
+      "name": "Topics Valid?"
+    },
+    {
+      "parameters": {
+        "message": "Enter at least one topic, for example: technology, science. Type \"cancel\" to stop.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        1952,
+        -864
+      ],
+      "id": "0927cbfb-821f-4016-a01a-8fc898c17044",
+      "name": "Reply - Invalid Topics",
+      "webhookId": "96bac74b-1d0a-43cf-922d-4c85ca50afa8"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "keyValue": "={{ $json.session_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "authenticated": false,
+            "state": "register_time",
+            "pending_json": "={{ JSON.stringify({   ...JSON.parse($json.pending_json || '{}'),   topics_json: $json.topics_json }) }}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({ minutes: 60 }).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1952,
+        -1008
+      ],
+      "id": "273bb3e3-4d33-4397-be62-3ca3835c2f1a",
+      "name": "Save Registration Topics"
+    },
+    {
+      "parameters": {
+        "message": "Choose the newsletter delivery time in HH:mm format, for example 08:30. Type \"cancel\" to stop.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        2080,
+        -1008
+      ],
+      "id": "2ec04fe7-0882-4723-b370-3b54650917a6",
+      "name": "Reply - Registration Time",
+      "webhookId": "9d95da06-8fdb-442b-af26-fef0a452b3e2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "d868feb5-b3de-457b-a3df-72e417c3e716",
+              "leftValue": "={{ /^([01]\\d|2[0-3]):[0-5]\\d$/.test($json.raw_input.trim()) }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        1664,
+        -624
+      ],
+      "id": "b3745cf6-16e9-4619-a9ee-9246820f2dbd",
+      "name": "Time Valid?"
+    },
+    {
+      "parameters": {
+        "message": "Invalid time. Use the HH:mm format, for example 08:30. Type \"cancel\" to stop.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        1808,
+        -544
+      ],
+      "id": "b038d428-32a2-4f5c-8c04-1c11fb7117f5",
+      "name": "Reply - Invalid Time",
+      "webhookId": "c61968af-fa7f-4f0c-9b20-cbc519fb2866"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "keyValue": "={{ $json.session_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "authenticated": false,
+            "state": "register_timezone",
+            "pending_json": "={{ JSON.stringify({   ...JSON.parse($json.pending_json || '{}'),   send_time: $json.raw_input.trim() }) }}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({ minutes: 60 }).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1808,
+        -688
+      ],
+      "id": "0f009fc2-18d7-4be1-85c7-796f08bb937a",
+      "name": "Save Registration Time"
+    },
+    {
+      "parameters": {
+        "message": "Enter an IANA timezone, for example Europe/Paris, or type \"default\" to use Europe/Paris. Type \"cancel\" to stop.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        1952,
+        -688
+      ],
+      "id": "e7f1f64d-0737-4914-8daa-96e59790a82f",
+      "name": "Reply - Registration Timezone",
+      "webhookId": "183b6f3a-9c41-46b1-ac54-df2997229da4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "671c518d-e439-40b5-8cfc-e90fe033a284",
+              "name": "timezone",
+              "value": "={{ $json.raw_input.trim().toLowerCase() === 'default'   ? 'Europe/Paris'   : $json.raw_input.trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1664,
+        -400
+      ],
+      "id": "f17a1a72-dd9c-4557-a0cc-7b138aed8463",
+      "name": "Prepare Timezone"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "c50ffa5c-41c6-4cdd-a708-9d2d272bd7be",
+              "leftValue": "={{ $now.setZone($json.timezone).isValid }}",
+              "rightValue": false,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        1808,
+        -400
+      ],
+      "id": "3d77f942-baea-421b-a52d-8da191b8e465",
+      "name": "Timezone Valid?"
+    },
+    {
+      "parameters": {
+        "message": "Invalid timezone. Enter an IANA timezone such as Europe/Paris, or type \"default\".",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        1984,
+        -288
+      ],
+      "id": "5766655e-3ee7-4a1d-a7fb-f57b4e4666e2",
+      "name": "Reply - Invalid Timezone",
+      "webhookId": "98776924-142a-422a-99e5-025325215f0c"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "keyValue": "={{ $json.session_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "authenticated": false,
+            "state": "register_consent",
+            "pending_json": "={{ JSON.stringify({   ...JSON.parse($json.pending_json || '{}'),   timezone: $json.timezone }) }}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({minutes:60}).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1984,
+        -448
+      ],
+      "id": "320e4e1f-3d24-4fec-9ee4-627532cd57f0",
+      "name": "Save Registration Timezone"
+    },
+    {
+      "parameters": {
+        "message": "={{ \n  'Please confirm your registration and consent to store your email and send newsletters.\\n\\n' +\n  'Username: ' + JSON.parse($json.pending_json).username_display + '\\n' +\n  'Email: ' + JSON.parse($json.pending_json).email + '\\n' +\n  'Topics: ' + JSON.parse(JSON.parse($json.pending_json).topics_json).join(', ') + '\\n' +\n  'Schedule: ' + JSON.parse($json.pending_json).send_time + ' (' +\n  JSON.parse($json.pending_json).timezone + ')\\n\\n' +\n  'Type \"I CONSENT\" to create the account, or type \"cancel\".'\n}}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        2128,
+        -448
+      ],
+      "id": "86039578-22d9-4a00-8ffc-01f7e18f6e32",
+      "name": "Reply - Registration Consent",
+      "webhookId": "b3c35565-03bd-48fb-88ea-9ea1c43a5e29"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "5080dcbd-aa37-481f-87b2-e241f9b93939",
+              "leftValue": "={{ $json.raw_input.trim().toUpperCase() === 'I CONSENT' }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        1664,
+        -64
+      ],
+      "id": "64e50224-ef13-4707-8878-dff1759b9514",
+      "name": "Consent Given?"
+    },
+    {
+      "parameters": {
+        "message": "The account was not created. Type \"I CONSENT\" to confirm, or type \"cancel\" to stop registration.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        1792,
+        32
+      ],
+      "id": "af34911c-9506-4414-9939-5e3dd7e3cb33",
+      "name": "Reply - Consent Required",
+      "webhookId": "6b1dccbd-deba-45f3-8420-edef22141ce2"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "sdo1Tgds6OFQPJe5",
+          "mode": "list",
+          "cachedResultName": "persona_users",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/sdo1Tgds6OFQPJe5"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "username_normalized",
+              "keyValue": "={{ JSON.parse($json.pending_json).username_normalized }}"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1808,
+        -144
+      ],
+      "id": "97f5d620-d59f-41d3-a162-852dde79f71b",
+      "name": "Final Username Check",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "71ff9e02-0365-4ea0-9770-18ad02ab475f",
+              "name": "session_id",
+              "value": "={{ $('Consent Given?').item.json.session_id }}",
+              "type": "string"
+            },
+            {
+              "id": "72c2af30-1140-42a7-abbe-5f79730a8684",
+              "name": "pending_json",
+              "value": "={{ $('Consent Given?').item.json.pending_json }}",
+              "type": "string"
+            },
+            {
+              "id": "85d3dad9-5212-4d08-bdba-a6303a187a4e",
+              "name": "now_iso",
+              "value": "={{ $('Consent Given?').item.json.now_iso || $now.toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "209e3b8e-790a-496d-ac17-ac6f5c4d59af",
+              "name": "existing_user_row_id",
+              "value": "={{ $json.id || \"\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1984,
+        -144
+      ],
+      "id": "30026756-26e1-47cc-af57-4c9b7eea2889",
+      "name": "Build Final Registration Context"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "f5e758fc-2334-43fa-bccb-473bb54b889d",
+              "leftValue": "={{ $json.existing_user_row_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        2160,
+        -144
+      ],
+      "id": "41407b38-00ee-4f95-b9e7-545ea968ff1c",
+      "name": "Final Username Exists?"
+    },
+    {
+      "parameters": {
+        "action": "generate",
+        "dataPropertyName": "user_id",
+        "encodingType": "hex"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 2,
+      "position": [
+        2336,
+        -64
+      ],
+      "id": "0f69980b-6b59-4116-8f4f-f7459562eb1e",
+      "name": "Generate User ID"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "sdo1Tgds6OFQPJe5",
+          "mode": "list",
+          "cachedResultName": "persona_users",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/sdo1Tgds6OFQPJe5"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "user_id": "={{ $json.user_id }}",
+            "username_normalized": "={{ JSON.parse($json.pending_json).username_normalized }}",
+            "username_display": "={{ JSON.parse($json.pending_json).username_display }}",
+            "password_salt": "={{ JSON.parse($json.pending_json).password_salt }}",
+            "password_hash": "={{ JSON.parse($json.pending_json).password_hash }}",
+            "email": "={{ JSON.parse($json.pending_json).email }}",
+            "topics_json": "={{ JSON.parse($json.pending_json).topics_json }}",
+            "send_time": "={{ JSON.parse($json.pending_json).send_time }}",
+            "timezone": "={{ JSON.parse($json.pending_json).timezone }}",
+            "newsletter_status": "active",
+            "consent_at": "={{ $now.toISO() }}",
+            "failed_login_count": 0,
+            "locked_until": "",
+            "created_at": "={{ $now.toISO() }}",
+            "updated_at": "={{ $now.toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "username_normalized",
+              "displayName": "username_normalized",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "username_display",
+              "displayName": "username_display",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "password_salt",
+              "displayName": "password_salt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "password_hash",
+              "displayName": "password_hash",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "topics_json",
+              "displayName": "topics_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "send_time",
+              "displayName": "send_time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "timezone",
+              "displayName": "timezone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "newsletter_status",
+              "displayName": "newsletter_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "consent_at",
+              "displayName": "consent_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "failed_login_count",
+              "displayName": "failed_login_count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "locked_until",
+              "displayName": "locked_until",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "updated_at",
+              "displayName": "updated_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2512,
+        -64
+      ],
+      "id": "02525120-6b85-475e-9fb0-b0487647f508",
+      "name": "Create Registered User"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "keyValue": "={{ $('Consent Given?').item.json.session_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "user_id": "={{ $('Generate User ID').item.json.user_id }}",
+            "authenticated": true,
+            "state": "idle",
+            "pending_json": "{}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({ minutes: 60 }).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2688,
+        -64
+      ],
+      "id": "1e7bc0a2-c209-4e7e-9edb-cfe039bc4dba",
+      "name": "Authenticate Registered Session"
+    },
+    {
+      "parameters": {
+        "message": "Account created successfully. You are now logged in. Type \"settings\" to view your newsletter preferences.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        2864,
+        -64
+      ],
+      "id": "67e4edfa-3435-43dc-839b-5dd195e309e6",
+      "name": "Reply - Registration Success",
+      "webhookId": "07cb964c-6980-48b7-9653-c8ce1b7a77b7"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "db46c490-38e3-46a3-8ac7-f0839eaea5cb",
+              "leftValue": "={{ $json.authenticated === true }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        3264,
+        -160
+      ],
+      "id": "d2bd4ca5-afab-403f-a470-8a367e6776cf",
+      "name": "Login Already Authenticated?"
+    },
+    {
+      "parameters": {
+        "message": "You are already logged in. Type \"logout\" before logging in with another account.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        3440,
+        -256
+      ],
+      "id": "1549687d-1978-406c-9540-1a2a7232ae5a",
+      "name": "Reply - Already Authenticated",
+      "webhookId": "a486204e-72c0-4172-9cc6-ceb61b3ef97a"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "keyValue": "={{ $json.session_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "user_id": "",
+            "authenticated": false,
+            "state": "login_username",
+            "pending_json": "{}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({ minutes: 60 }).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        3360,
+        -160
+      ],
+      "id": "e653de2f-7886-47f9-929c-0359cd936f0b",
+      "name": "Start Login"
+    },
+    {
+      "parameters": {
+        "message": "Enter your username. Type \"cancel\" to stop login.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        3536,
+        -160
+      ],
+      "id": "a7519a4c-870b-4f0a-8909-fcefabae27e9",
+      "name": "Reply - Login Username",
+      "webhookId": "3f2ea5ea-d07c-4dc3-b13e-3add9eeccd49"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3d853f9e-d86c-49bc-a418-69ec481e4c78",
+              "name": "username_normalized",
+              "value": "={{ $json.raw_input.trim().toLowerCase() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1504,
+        480
+      ],
+      "id": "dafc0530-1533-4b20-bf23-34c24c60e937",
+      "name": "Prepare Login Username"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "sdo1Tgds6OFQPJe5",
+          "mode": "list",
+          "cachedResultName": "persona_users",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/sdo1Tgds6OFQPJe5"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "username_normalized",
+              "keyValue": "={{ $json.username_normalized }}"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1680,
+        480
+      ],
+      "id": "a5668765-ee66-45e6-9970-d01b7095f187",
+      "name": "Find Login User",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7e9da063-5883-4655-9b6d-758d2fb91358",
+              "name": "session_id",
+              "value": "={{ $('Prepare Login Username').item.json.session_id }}",
+              "type": "string"
+            },
+            {
+              "id": "55a1ad5b-1b46-4ca4-986b-e4e6b014052b",
+              "name": "raw_input",
+              "value": "={{ $('Prepare Login Username').item.json.raw_input }}",
+              "type": "string"
+            },
+            {
+              "id": "83de8ade-d975-457c-983e-24852692d529",
+              "name": "user_id",
+              "value": "={{ $json.user_id || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "682d50af-2d66-40e1-903e-97686954a8bf",
+              "name": "username_normalized",
+              "value": "={{ $json.username_normalized || $('Prepare Login Username').item.json.username_normalized }}",
+              "type": "string"
+            },
+            {
+              "id": "37ff84d2-2a95-405a-970d-95b2f063fc2b",
+              "name": "failed_login_count",
+              "value": "={{ Number($json.failed_login_count || 0) }}",
+              "type": "number"
+            },
+            {
+              "id": "92c5f86c-4757-4ecb-9d1e-89481b510b0d",
+              "name": "locked_until",
+              "value": "={{ $json.locked_until || \"\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1856,
+        480
+      ],
+      "id": "60623f2f-2241-4e67-a881-f4029f02d9cb",
+      "name": "Build Login User Context"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "348fa193-08cc-4c1c-9fac-c6c217abda8e",
+              "leftValue": "={{ $json.user_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        2032,
+        480
+      ],
+      "id": "47abb76a-4934-41da-8ca9-9fbe1dee28e1",
+      "name": "Login User Exists?"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "keyValue": "={{ $json.session_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "user_id": "",
+            "authenticated": false,
+            "state": "login_password",
+            "pending_json": "={{ JSON.stringify({ user_id: $json.user_id, username_normalized: $json.username_normalized }) }}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({ minutes: 60 }).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2384,
+        480
+      ],
+      "id": "91bae246-9f32-4bd0-9818-d4a86bc8de65",
+      "name": "Save Login Identity"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "keyValue": "={{ $json.session_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "user_id": "",
+            "authenticated": false,
+            "state": "login_password",
+            "pending_json": "={{ JSON.stringify({ user_id: \"\", username_normalized: $json.username_normalized }) }}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({ minutes: 60 }).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2208,
+        640
+      ],
+      "id": "a39b7535-097e-4c26-862b-4b0b7434140b",
+      "name": "Save Unknown Login Identity"
+    },
+    {
+      "parameters": {
+        "message": "Enter your password. Type \"cancel\" to stop login.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        2560,
+        480
+      ],
+      "id": "38c3661f-c011-41f9-b0cf-b267158bb132",
+      "name": "Reply - Login Password",
+      "webhookId": "993512c8-214e-4cf9-b073-d4892097579e"
+    },
+    {
+      "parameters": {
+        "message": "Invalid username or password. Try again or type \"cancel\".",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        2384,
+        704
+      ],
+      "id": "dfe1e641-2564-4afc-a757-e7fa381e3379",
+      "name": "Reply - Invalid Login",
+      "webhookId": "60db1271-1c12-42ee-a629-c3c59fcf18f3"
+    },
+    {
+      "parameters": {
+        "message": "This account is temporarily locked after too many failed attempts. Try again later or type \"cancel\".",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        2384,
+        304
+      ],
+      "id": "93edcfc7-00ee-4566-a688-84bad41dcdd9",
+      "name": "Reply - Login Locked",
+      "webhookId": "db2c9f8b-05e4-4785-9425-ab0c41f6b52d"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "sdo1Tgds6OFQPJe5",
+          "mode": "list",
+          "cachedResultName": "persona_users",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/sdo1Tgds6OFQPJe5"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "user_id",
+              "keyValue": "={{ JSON.parse($json.pending_json || \"{}\").user_id || \"\" }}"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1504,
+        960
+      ],
+      "id": "51817762-1977-4ecb-9aad-026c18ebd059",
+      "name": "Find Login User For Password",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "80598efe-3e56-478e-9196-43350aca448d",
+              "name": "session_id",
+              "value": "={{ $('route sessin state').item.json.session_id }}",
+              "type": "string"
+            },
+            {
+              "id": "3d0cc991-387e-4c40-8530-731753ac6f8b",
+              "name": "raw_input",
+              "value": "={{ $('route sessin state').item.json.raw_input }}",
+              "type": "string"
+            },
+            {
+              "id": "00ef698f-0ab5-4465-8136-673272d5e0bf",
+              "name": "user_id",
+              "value": "={{ $json.user_id || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "b052c2c7-f735-4f7d-943c-f3815420fab9",
+              "name": "password_salt",
+              "value": "={{ $json.password_salt || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "d80df48d-1b3c-47ec-b7c8-b82ba601f2a6",
+              "name": "stored_password_hash",
+              "value": "={{ $json.password_hash || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "784ea81d-7f4a-4c4a-892b-e293164d0eac",
+              "name": "failed_login_count",
+              "value": "={{ Number($json.failed_login_count || 0) }}",
+              "type": "number"
+            },
+            {
+              "id": "a99c02d8-572e-46e0-9985-c36e62181e47",
+              "name": "locked_until",
+              "value": "={{ $json.locked_until || \"\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1680,
+        960
+      ],
+      "id": "9e48ab74-8c15-4aab-81b9-2e774c9dd70d",
+      "name": "Build Login Password Context"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "651b4e35-c6e5-45af-a24c-b3c53f7a314b",
+              "leftValue": "={{ $json.user_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        1856,
+        960
+      ],
+      "id": "3c9e617c-8989-4d50-86e0-ecf922629179",
+      "name": "Login Password User Exists?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "a4264f9a-7fed-40cb-bb84-e3dcc6bf4758",
+              "leftValue": "={{ Boolean($json.locked_until) && $json.locked_until > $now.toISO() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        2032,
+        880
+      ],
+      "id": "dc51828f-a750-4c3f-abf2-7653f49b4a4a",
+      "name": "Login Password Locked?"
+    },
+    {
+      "parameters": {
+        "action": "hmac",
+        "value": "={{ $json.password_salt + \":\" + $json.raw_input }}",
+        "dataPropertyName": "password_hash"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 2,
+      "position": [
+        2208,
+        960
+      ],
+      "id": "8bdba813-2bec-4a98-8a50-0a70c4c665a3",
+      "name": "Hash Login Password",
+      "credentials": {
+        "crypto": {
+          "id": "z4xru3VZiZ4uLaHm",
+          "name": "Persona Password HMAC"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "8e888cdb-e7f5-42c4-9727-363bcaf6cce8",
+              "leftValue": "={{ $json.password_hash }}",
+              "rightValue": "={{ $json.stored_password_hash }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        2384,
+        960
+      ],
+      "id": "0cbe667c-35dd-474b-a5ff-48d7af5177ab",
+      "name": "Login Password Matches?"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "sdo1Tgds6OFQPJe5",
+          "mode": "list",
+          "cachedResultName": "persona_users",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/sdo1Tgds6OFQPJe5"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "user_id",
+              "keyValue": "={{ $json.user_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "failed_login_count": 0,
+            "locked_until": "",
+            "updated_at": "={{ $now.toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "username_normalized",
+              "displayName": "username_normalized",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "username_display",
+              "displayName": "username_display",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "password_salt",
+              "displayName": "password_salt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "password_hash",
+              "displayName": "password_hash",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "topics_json",
+              "displayName": "topics_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "send_time",
+              "displayName": "send_time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "timezone",
+              "displayName": "timezone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "newsletter_status",
+              "displayName": "newsletter_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "consent_at",
+              "displayName": "consent_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "failed_login_count",
+              "displayName": "failed_login_count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "locked_until",
+              "displayName": "locked_until",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "updated_at",
+              "displayName": "updated_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2560,
+        880
+      ],
+      "id": "5e57a68a-3cbd-46fc-ae35-32bb6ff54260",
+      "name": "Reset Login Failures"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "keyValue": "={{ $('Build Login Password Context').item.json.session_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "user_id": "={{ $('Build Login Password Context').item.json.user_id }}",
+            "authenticated": true,
+            "state": "idle",
+            "pending_json": "{}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({ minutes: 60 }).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2736,
+        880
+      ],
+      "id": "21dfbffe-d006-4434-827e-fc90cd9ce641",
+      "name": "Authenticate Login Session"
+    },
+    {
+      "parameters": {
+        "message": "Login successful. You are now authenticated.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        2912,
+        880
+      ],
+      "id": "6c9e35aa-f9bc-44ef-9ae5-dca270ce16da",
+      "name": "Reply - Login Success",
+      "webhookId": "bf4b91fc-bbac-49fe-bf31-00e78a7cf789"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fd9c5672-6234-4b5e-8b44-481010428e2c",
+              "name": "next_failed_login_count",
+              "value": "={{ ($json.locked_until && $json.locked_until <= $now.toISO() ? 0 : Number($json.failed_login_count || 0)) + 1 }}",
+              "type": "number"
+            },
+            {
+              "id": "7bcc82a7-ba2e-4b1d-b461-134298f67811",
+              "name": "next_locked_until",
+              "value": "={{ (($json.locked_until && $json.locked_until <= $now.toISO() ? 0 : Number($json.failed_login_count || 0)) + 1) >= 5 ? $now.plus({ minutes: 15 }).toISO() : \"\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        2560,
+        1056
+      ],
+      "id": "518ee217-7b70-4e10-8f8b-95e411500972",
+      "name": "Prepare Login Failure"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "sdo1Tgds6OFQPJe5",
+          "mode": "list",
+          "cachedResultName": "persona_users",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/sdo1Tgds6OFQPJe5"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "user_id",
+              "keyValue": "={{ $json.user_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "failed_login_count": "={{ $json.next_failed_login_count }}",
+            "locked_until": "={{ $json.next_locked_until }}",
+            "updated_at": "={{ $now.toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "username_normalized",
+              "displayName": "username_normalized",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "username_display",
+              "displayName": "username_display",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "password_salt",
+              "displayName": "password_salt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "password_hash",
+              "displayName": "password_hash",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "topics_json",
+              "displayName": "topics_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "send_time",
+              "displayName": "send_time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "timezone",
+              "displayName": "timezone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "newsletter_status",
+              "displayName": "newsletter_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "consent_at",
+              "displayName": "consent_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "failed_login_count",
+              "displayName": "failed_login_count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "locked_until",
+              "displayName": "locked_until",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "updated_at",
+              "displayName": "updated_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2736,
+        1056
+      ],
+      "id": "d58c9525-fce1-40ce-bd73-14245ac33164",
+      "name": "Save Login Failure"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "ad2b0410-8dbb-4731-93c2-98ee73022f2b",
+              "leftValue": "={{ Number($('Prepare Login Failure').item.json.next_failed_login_count) >= 5 }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        2912,
+        1056
+      ],
+      "id": "a0a638d5-73cc-4a5b-b902-f14c8b976751",
+      "name": "Login Failure Threshold Reached?"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "keyValue": "={{ $json.session_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "user_id": "",
+            "authenticated": false,
+            "state": "idle",
+            "pending_json": "{}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({ minutes: 60 }).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2032,
+        1152
+      ],
+      "id": "018258ba-b133-4561-a295-46f2f4a3426c",
+      "name": "Reset Missing Login Session"
     }
   ],
   "pinData": {},
@@ -1970,7 +4847,13 @@
             "index": 0
           }
         ],
-        [],
+        [
+          {
+            "node": "Login Already Authenticated?",
+            "type": "main",
+            "index": 0
+          }
+        ],
         [],
         [],
         [],
@@ -2085,13 +4968,55 @@
             "index": 0
           }
         ],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
+        [
+          {
+            "node": "Email Valid?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Topics",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Time Valid?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Timezone",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Consent Given?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Login Username",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Find Login User For Password",
+            "type": "main",
+            "index": 0
+          }
+        ],
         [
           {
             "node": "Route Command",
@@ -2258,14 +5183,509 @@
           }
         ]
       ]
+    },
+    "Email Valid?": {
+      "main": [
+        [
+          {
+            "node": "Save Registration Email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply - Invalid Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Registration Email": {
+      "main": [
+        [
+          {
+            "node": "Reply - Registration Topics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Topics": {
+      "main": [
+        [
+          {
+            "node": "Topics Valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Topics Valid?": {
+      "main": [
+        [
+          {
+            "node": "Save Registration Topics",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply - Invalid Topics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Registration Topics": {
+      "main": [
+        [
+          {
+            "node": "Reply - Registration Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Time Valid?": {
+      "main": [
+        [
+          {
+            "node": "Save Registration Time",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply - Invalid Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Registration Time": {
+      "main": [
+        [
+          {
+            "node": "Reply - Registration Timezone",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Timezone": {
+      "main": [
+        [
+          {
+            "node": "Timezone Valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Timezone Valid?": {
+      "main": [
+        [
+          {
+            "node": "Save Registration Timezone",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply - Invalid Timezone",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Registration Timezone": {
+      "main": [
+        [
+          {
+            "node": "Reply - Registration Consent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consent Given?": {
+      "main": [
+        [
+          {
+            "node": "Final Username Check",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply - Consent Required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Final Username Check": {
+      "main": [
+        [
+          {
+            "node": "Build Final Registration Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Final Registration Context": {
+      "main": [
+        [
+          {
+            "node": "Final Username Exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Final Username Exists?": {
+      "main": [
+        [
+          {
+            "node": "Start Registration",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Generate User ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate User ID": {
+      "main": [
+        [
+          {
+            "node": "Create Registered User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Registered User": {
+      "main": [
+        [
+          {
+            "node": "Authenticate Registered Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Authenticate Registered Session": {
+      "main": [
+        [
+          {
+            "node": "Reply - Registration Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Login Already Authenticated?": {
+      "main": [
+        [
+          {
+            "node": "Reply - Already Authenticated",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Start Login",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start Login": {
+      "main": [
+        [
+          {
+            "node": "Reply - Login Username",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Login Username": {
+      "main": [
+        [
+          {
+            "node": "Find Login User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Login User": {
+      "main": [
+        [
+          {
+            "node": "Build Login User Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Login User Context": {
+      "main": [
+        [
+          {
+            "node": "Login User Exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Login User Exists?": {
+      "main": [
+        [
+          {
+            "node": "Save Login Identity",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Save Unknown Login Identity",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Login Identity": {
+      "main": [
+        [
+          {
+            "node": "Reply - Login Password",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Unknown Login Identity": {
+      "main": [
+        [
+          {
+            "node": "Reply - Login Password",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Login User For Password": {
+      "main": [
+        [
+          {
+            "node": "Build Login Password Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Login Password Context": {
+      "main": [
+        [
+          {
+            "node": "Login Password User Exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Login Password User Exists?": {
+      "main": [
+        [
+          {
+            "node": "Login Password Locked?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reset Missing Login Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Login Password Locked?": {
+      "main": [
+        [
+          {
+            "node": "Reply - Invalid Login",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Hash Login Password",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hash Login Password": {
+      "main": [
+        [
+          {
+            "node": "Login Password Matches?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Login Password Matches?": {
+      "main": [
+        [
+          {
+            "node": "Reset Login Failures",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Login Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reset Login Failures": {
+      "main": [
+        [
+          {
+            "node": "Authenticate Login Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Authenticate Login Session": {
+      "main": [
+        [
+          {
+            "node": "Reply - Login Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Login Failure": {
+      "main": [
+        [
+          {
+            "node": "Save Login Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Login Failure": {
+      "main": [
+        [
+          {
+            "node": "Login Failure Threshold Reached?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Login Failure Threshold Reached?": {
+      "main": [
+        [
+          {
+            "node": "Reply - Login Locked",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply - Invalid Login",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reset Missing Login Session": {
+      "main": [
+        [
+          {
+            "node": "Reply - Invalid Login",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate"
+    "binaryMode": "separate",
+    "saveDataErrorExecution": "none",
+    "saveDataSuccessExecution": "none",
+    "saveManualExecutions": false,
+    "saveExecutionProgress": false
   },
-  "versionId": "8f34c20b-79fa-4e1c-bcb7-46e6080aa82c",
+  "versionId": "38a645e5-aeac-40a1-adc3-1b78fe7a242f",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "e9b51ccfda4c94a4db2c09599989fffc064078511bb3a866408c706da5407b1b"
