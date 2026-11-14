@@ -1193,6 +1193,31 @@
               },
               "renameOutput": true,
               "outputKey": "settings_schedule_timezone"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "557b06ef-e8b0-4eb1-baf3-99056f490837",
+                    "leftValue": "={{ $json.state }}",
+                    "rightValue": "delete_account_confirm",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "delete_account_confirm"
             }
           ]
         },
@@ -4901,7 +4926,7 @@
       "typeVersion": 1.1,
       "position": [
         2032,
-        1152
+        1056
       ],
       "id": "018258ba-b133-4561-a295-46f2f4a3426c",
       "name": "Reset Missing Login Session"
@@ -5128,7 +5153,7 @@
         240
       ],
       "id": "de1b8af7-f9c7-40cc-97a4-ac1195187b5c",
-      "name": "Settings Authenticated?"
+      "name": "Authenticated Command?"
     },
     {
       "parameters": {
@@ -5248,6 +5273,81 @@
               },
               "renameOutput": true,
               "outputKey": "email"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "4506b1fa-73e4-48f8-a0e6-d4112fdb4e02",
+                    "leftValue": "={{ $json.command }}",
+                    "rightValue": "subscribe",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "subscribe"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "6c8aa46d-b31c-4b7e-8bf2-d21b16e0a25b",
+                    "leftValue": "={{ $json.command }}",
+                    "rightValue": "unsubscribe",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "unsubscribe"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "1c137383-ac0b-43d3-80ba-2b5d004debf5",
+                    "leftValue": "={{ $json.command }}",
+                    "rightValue": "delete account",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "delete account"
             }
           ]
         },
@@ -5262,7 +5362,7 @@
         144
       ],
       "id": "2739975c-369b-4dd5-bd87-bfac85576fd2",
-      "name": "Route Settings Action"
+      "name": "Route Authenticated Action"
     },
     {
       "parameters": {
@@ -5861,7 +5961,7 @@
       "typeVersion": 1.1,
       "position": [
         1856,
-        1216
+        1232
       ],
       "id": "c0196f62-389a-494d-8833-8090585ad709",
       "name": "Update Settings Topics"
@@ -5986,7 +6086,7 @@
       "typeVersion": 1.1,
       "position": [
         2032,
-        1216
+        1248
       ],
       "id": "6e5cad9e-3539-4bf0-b610-c506da365602",
       "name": "Finish Settings Topics"
@@ -7240,6 +7340,780 @@
       "id": "e1965028-996c-490d-93cb-651b8ebe3892",
       "name": "Reply - Settings Schedule Success",
       "webhookId": "386973de-6979-41d4-bfdc-6480a8cf06b1"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "sdo1Tgds6OFQPJe5",
+          "mode": "list",
+          "cachedResultName": "persona_users",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/sdo1Tgds6OFQPJe5"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "user_id",
+              "keyValue": "={{ $json.user_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "newsletter_status": "active",
+            "updated_at": "={{ $now.toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "username_normalized",
+              "displayName": "username_normalized",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "username_display",
+              "displayName": "username_display",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "password_salt",
+              "displayName": "password_salt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "password_hash",
+              "displayName": "password_hash",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "topics_json",
+              "displayName": "topics_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "send_time",
+              "displayName": "send_time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "timezone",
+              "displayName": "timezone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "newsletter_status",
+              "displayName": "newsletter_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "consent_at",
+              "displayName": "consent_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "failed_login_count",
+              "displayName": "failed_login_count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "locked_until",
+              "displayName": "locked_until",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "updated_at",
+              "displayName": "updated_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        5408,
+        816
+      ],
+      "id": "71204dd5-1f2e-4fd4-9f11-b832a1e61a81",
+      "name": "Activate Newsletter"
+    },
+    {
+      "parameters": {
+        "message": "Newsletter subscription activated.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        5648,
+        816
+      ],
+      "id": "0217a3e7-0e3e-4ad9-b352-27b757e03c4a",
+      "name": "Reply - Subscribed",
+      "webhookId": "21b65f08-918f-4be8-b2b8-2cedbd4e51dc"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "sdo1Tgds6OFQPJe5",
+          "mode": "list",
+          "cachedResultName": "persona_users",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/sdo1Tgds6OFQPJe5"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "user_id",
+              "keyValue": "={{ $json.user_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "newsletter_status": "inactive",
+            "updated_at": "={{ $now.toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "username_normalized",
+              "displayName": "username_normalized",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "username_display",
+              "displayName": "username_display",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "password_salt",
+              "displayName": "password_salt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "password_hash",
+              "displayName": "password_hash",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "topics_json",
+              "displayName": "topics_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "send_time",
+              "displayName": "send_time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "timezone",
+              "displayName": "timezone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "newsletter_status",
+              "displayName": "newsletter_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "consent_at",
+              "displayName": "consent_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "failed_login_count",
+              "displayName": "failed_login_count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "locked_until",
+              "displayName": "locked_until",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "updated_at",
+              "displayName": "updated_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        5408,
+        976
+      ],
+      "id": "58693a1a-751c-4e77-b662-f7403209c7e6",
+      "name": "Deactivate Newsletter"
+    },
+    {
+      "parameters": {
+        "message": "Newsletter subscription deactivated. You can subscribe again at any time.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        5648,
+        976
+      ],
+      "id": "117295aa-5dd4-45e0-81c8-f1bdd00a55c0",
+      "name": "Reply - Unsubscribed",
+      "webhookId": "26a1068d-8a04-4137-bf2a-6bb290d29060"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "keyValue": "={{ $json.session_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "authenticated": true,
+            "state": "delete_account_confirm",
+            "pending_json": "{}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({ minutes: 60 }).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        5408,
+        1136
+      ],
+      "id": "79b73345-8cb0-4c60-b1b3-3cc959a02686",
+      "name": "Start Delete Account Confirmation"
+    },
+    {
+      "parameters": {
+        "message": "This permanently deletes your Persona account and stored personal data. Type \"DELETE MY ACCOUNT\" to confirm, or type \"cancel\" to keep your account.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        5648,
+        1136
+      ],
+      "id": "22f05115-ac2a-4568-bb99-b1a04b6286bb",
+      "name": "Reply - Delete Account Confirmation",
+      "webhookId": "8f6e5f22-a9db-4e63-9c14-d1cc83a0eb53"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "3dd70723-35ba-4d33-a798-4bd94e27b73f",
+              "leftValue": "={{ $json.raw_input.trim() === 'DELETE MY ACCOUNT' }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        1856,
+        2304
+      ],
+      "id": "710c70c4-ea91-43df-b65d-bc8d0a3ce05e",
+      "name": "Delete Account Confirmed?"
+    },
+    {
+      "parameters": {
+        "operation": "deleteRows",
+        "dataTableId": {
+          "__rl": true,
+          "value": "sdo1Tgds6OFQPJe5",
+          "mode": "list",
+          "cachedResultName": "persona_users",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/sdo1Tgds6OFQPJe5"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "user_id",
+              "keyValue": "={{ $json.user_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2096,
+        2240
+      ],
+      "id": "57a13b80-d9a3-45df-8157-6443fd721b0c",
+      "name": "Delete Persona User"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "keyValue": "={{ $('Delete Account Confirmed?').item.json.session_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "user_id": "",
+            "authenticated": false,
+            "state": "idle",
+            "pending_json": "{}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({ minutes: 60 }).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2336,
+        2240
+      ],
+      "id": "8427bfa9-9778-4ed1-a0dc-29bf94a17692",
+      "name": "Clear Deleted Account Session"
+    },
+    {
+      "parameters": {
+        "message": "Your account and stored personal data have been deleted. You are now logged out.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        2576,
+        2240
+      ],
+      "id": "db166f13-d973-4280-9790-7b147e01a5d0",
+      "name": "Reply - Account Deleted",
+      "webhookId": "cf6ebafe-cffd-4633-92bf-769a293d608c"
+    },
+    {
+      "parameters": {
+        "message": "Account not deleted. Type exactly \"DELETE MY ACCOUNT\" to confirm, or type \"cancel\" to keep your account.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        2096,
+        2368
+      ],
+      "id": "435c0d21-a39e-4723-98ec-ed02d8ea59a6",
+      "name": "Reply - Delete Account Not Confirmed",
+      "webhookId": "f3bd3a3f-5cf5-4684-a05d-4a665927c462"
     }
   ],
   "pinData": {},
@@ -7291,7 +8165,7 @@
         ],
         [
           {
-            "node": "Settings Authenticated?",
+            "node": "Authenticated Command?",
             "type": "main",
             "index": 0
           }
@@ -7299,21 +8173,21 @@
         [],
         [
           {
-            "node": "Settings Authenticated?",
+            "node": "Authenticated Command?",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Settings Authenticated?",
+            "node": "Authenticated Command?",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Settings Authenticated?",
+            "node": "Authenticated Command?",
             "type": "main",
             "index": 0
           }
@@ -7325,9 +8199,27 @@
             "index": 0
           }
         ],
-        [],
-        [],
-        [],
+        [
+          {
+            "node": "Authenticated Command?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Authenticated Command?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Authenticated Command?",
+            "type": "main",
+            "index": 0
+          }
+        ],
         [
           {
             "node": "Reply - Unknown Command",
@@ -7516,7 +8408,15 @@
             "type": "main",
             "index": 0
           }
-        ]
+        ],
+        [
+          {
+            "node": "Delete Account Confirmed?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
       ]
     },
     "Session Expired?": {
@@ -8197,63 +9097,6 @@
         ]
       ]
     },
-    "Settings Authenticated?": {
-      "main": [
-        [
-          {
-            "node": "Route Settings Action",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Reply - Settings Login Required",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Route Settings Action": {
-      "main": [
-        [
-          {
-            "node": "Get Settings User",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Start Settings Topics",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Start Settings Schedule",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Start Settings Email",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Reply - Unknown Command",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Get Settings User": {
       "main": [
         [
@@ -8508,6 +9351,157 @@
           }
         ]
       ]
+    },
+    "Authenticated Command?": {
+      "main": [
+        [
+          {
+            "node": "Route Authenticated Action",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply - Settings Login Required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Authenticated Action": {
+      "main": [
+        [
+          {
+            "node": "Get Settings User",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Start Settings Topics",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Start Settings Schedule",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Start Settings Email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Activate Newsletter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Deactivate Newsletter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Start Delete Account Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply - Unknown Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Activate Newsletter": {
+      "main": [
+        [
+          {
+            "node": "Reply - Subscribed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deactivate Newsletter": {
+      "main": [
+        [
+          {
+            "node": "Reply - Unsubscribed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start Delete Account Confirmation": {
+      "main": [
+        [
+          {
+            "node": "Reply - Delete Account Confirmation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Account Confirmed?": {
+      "main": [
+        [
+          {
+            "node": "Delete Persona User",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply - Delete Account Not Confirmed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Persona User": {
+      "main": [
+        [
+          {
+            "node": "Clear Deleted Account Session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clear Deleted Account Session": {
+      "main": [
+        [
+          {
+            "node": "Reply - Account Deleted",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -8519,7 +9513,7 @@
     "saveManualExecutions": false,
     "saveExecutionProgress": false
   },
-  "versionId": "d9f39f8e-04a9-455e-9951-5136b53d7d45",
+  "versionId": "582beed9-30f2-4c0d-a0f1-0ea757cbf6ca",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "e9b51ccfda4c94a4db2c09599989fffc064078511bb3a866408c706da5407b1b"

@@ -1,0 +1,675 @@
+{
+  "name": "Persona News Fetch",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "68f44f59-cff5-4e19-a22a-47878b625080",
+      "name": "Test News Fetch"
+    },
+    {
+      "parameters": {
+        "resource": "table",
+        "operation": "create",
+        "tableName": "persona_articles",
+        "columns": {
+          "column": [
+            {
+              "name": "url"
+            },
+            {
+              "name": "title"
+            },
+            {
+              "name": "description"
+            },
+            {
+              "name": "source"
+            },
+            {
+              "name": "published_at"
+            },
+            {
+              "name": "summary"
+            },
+            {
+              "name": "topics_json"
+            },
+            {
+              "name": "fetched_at"
+            },
+            {
+              "name": "updated_at"
+            }
+          ]
+        },
+        "options": {
+          "createIfNotExists": true
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        0
+      ],
+      "id": "9dcf786a-b3af-4fc8-8647-07c5e8807d3f",
+      "name": "Ensure Articles Table"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  { json: { source: 'BBC Technology', feed_url: 'https://feeds.bbci.co.uk/news/technology/rss.xml' } },\n  { json: { source: 'TechCrunch', feed_url: 'https://techcrunch.com/feed/' } },\n  { json: { source: 'The Guardian World', feed_url: 'https://www.theguardian.com/world/rss' } }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        0
+      ],
+      "id": "a1fc7d20-eb53-4aa4-b4e5-e249f08c934b",
+      "name": "Define RSS Sources"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.feed_url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        720,
+        0
+      ],
+      "id": "67380328-3c3f-4f55-a81c-0da0b0077c2a",
+      "name": "Read RSS Feeds",
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const cleanText = (value) => String(value ?? '')\n  .replace(/<[^>]*>/g, ' ')\n  .replace(/&nbsp;/gi, ' ')\n  .replace(/&amp;/gi, '&')\n  .replace(/&quot;/gi, '\\\"')\n  .replace(/&#39;/gi, \"'\")\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nconst canonicalUrl = (value) => {\n  const withoutHash = String(value).trim().split('#')[0];\n  const parts = withoutHash.split('?');\n  let base = parts.shift();\n  if (!/^https?:\\/\\//i.test(base)) throw new Error('Invalid URL');\n  base = base.replace(/\\/+$/, '');\n  const parameters = parts.join('?').split('&').filter(Boolean).filter((pair) => {\n    const key = pair.split('=')[0].toLowerCase();\n    return !key.startsWith('utm_') && !['fbclid', 'gclid'].includes(key);\n  }).sort();\n  return base + (parameters.length ? '?' + parameters.join('&') : '');\n};\n\nconst sourceName = (value) => {\n  const match = String(value).match(/^https?:\\/\\/([^/]+)/i);\n  const host = (match ? match[1] : '').replace(/^www\\./, '').toLowerCase();\n  if (host.includes('bbc.')) return 'BBC Technology';\n  if (host.includes('techcrunch.com')) return 'TechCrunch';\n  if (host.includes('theguardian.com')) return 'The Guardian World';\n  return host;\n};\n\nconst now = new Date().toISOString();\nconst output = [];\nfor (const item of $input.all()) {\n  const article = item.json;\n  if (article.error || !article.link || !article.title) continue;\n  let url;\n  try { url = canonicalUrl(article.link); } catch { continue; }\n  const rawDate = article.isoDate || article.pubDate || article.published || article.date || '';\n  const parsedDate = rawDate ? new Date(rawDate) : null;\n  const publishedAt = parsedDate && !Number.isNaN(parsedDate.getTime()) ? parsedDate.toISOString() : '';\n  const description = cleanText(article.contentSnippet || article.description || article.summary || article.content || '').slice(0, 5000);\n  output.push({ json: {\n    url,\n    title: cleanText(article.title).slice(0, 1000),\n    description,\n    source: sourceName(url),\n    published_at: publishedAt,\n    fetched_at: now,\n    updated_at: now\n  } });\n}\nreturn output;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        0
+      ],
+      "id": "69371db5-c102-431d-99ab-c82bf0d6bc69",
+      "name": "Normalize Articles"
+    },
+    {
+      "parameters": {
+        "compare": "selectedFields",
+        "fieldsToCompare": "url",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        0
+      ],
+      "id": "0490a635-522c-4070-854b-f7b03f98fb34",
+      "name": "Remove Duplicate URLs"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "value": "persona_articles",
+          "mode": "name"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "url",
+              "keyValue": "={{ $json.url }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "url": "={{ $json.url }}",
+            "title": "={{ $json.title }}",
+            "description": "={{ $json.description }}",
+            "source": "={{ $json.source }}",
+            "published_at": "={{ $json.published_at }}",
+            "fetched_at": "={{ $json.fetched_at }}",
+            "updated_at": "={{ $json.updated_at }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "published_at",
+              "displayName": "published_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "summary",
+              "displayName": "summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "topics_json",
+              "displayName": "topics_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "fetched_at",
+              "displayName": "fetched_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "updated_at",
+              "displayName": "updated_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1440,
+        0
+      ],
+      "id": "6247c6be-d985-49ac-9864-b263a52d94ba",
+      "name": "Upsert Article"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "e38a51ae-0d36-4515-808d-2be0069d3b64",
+              "leftValue": "={{ $json.summary === null || $json.summary === undefined || String($json.summary).trim() === '' }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        1680,
+        0
+      ],
+      "id": "186d6ae5-6345-42db-aa20-4a4e7d40bc18",
+      "name": "Article Needs AI?"
+    },
+    {
+      "parameters": {
+        "maxItems": 10
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1920,
+        -80
+      ],
+      "id": "4a84d80d-65bf-4436-84f6-cbc8ec925235",
+      "name": "Limit AI Batch"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You classify a public news article for a personalized newsletter.\n\nTitle: {{ $json.title }}\nDescription: {{ $json.description }}\n\nWrite a neutral English summary of at most 60 words using only information present above. Select between one and four topic labels from this list only: technology, business, science, world, politics, health, sports, environment, culture. Do not infer personal data and do not invent facts.",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Return only the structured result required by the connected output parser."
+            }
+          ]
+        },
+        "batching": {
+          "batchSize": 1,
+          "delayBetweenBatches": 1200
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        2160,
+        -80
+      ],
+      "id": "56ce2337-2fd5-4be2-af17-e8387d2eb580",
+      "name": "Analyze Article with Groq",
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-20b",
+        "options": {
+          "maxTokensToSample": 1200,
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        2080,
+        160
+      ],
+      "id": "dd89d2ce-f936-44a3-b3b7-1d2d655b2928",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "uIpuxEOP5abhxwie",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\"type\":\"object\",\"properties\":{\"summary\":{\"type\":\"string\",\"description\":\"Neutral English summary of at most 60 words\"},\"topics\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"enum\":[\"technology\",\"business\",\"science\",\"world\",\"politics\",\"health\",\"sports\",\"environment\",\"culture\"]},\"minItems\":1,\"maxItems\":4}},\"required\":[\"summary\",\"topics\"],\"additionalProperties\":false}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        2240,
+        160
+      ],
+      "id": "d006eae5-4a92-48bb-b599-f4f23740ca89",
+      "name": "Article Output Schema"
+    },
+    {
+      "parameters": {
+        "jsCode": "const sourceItems = $('Limit AI Batch').all();\nconst allowed = ['technology', 'business', 'science', 'world', 'politics', 'health', 'sports', 'environment', 'culture'];\n\nconst inferTopics = (value) => {\n  const text = String(value).toLowerCase();\n  const topics = [];\n  const rules = {\n    technology: ['technology', 'software', 'computer', 'internet', 'cyber', 'microsoft', 'google', 'apple', 'ai ', 'artificial intelligence'],\n    business: ['business', 'economy', 'economic', 'finance', 'market', 'company', 'bank', 'trade'],\n    science: ['science', 'research', 'space', 'physics', 'biology'],\n    politics: ['government', 'president', 'minister', 'election', 'parliament', 'politic'],\n    health: ['health', 'hospital', 'medical', 'doctor', 'disease'],\n    sports: ['sport', 'football', 'tennis', 'match', 'league'],\n    environment: ['climate', 'environment', 'emission', 'wildlife'],\n    culture: ['culture', 'film', 'music', 'art', 'book']\n  };\n  for (const [topic, words] of Object.entries(rules)) {\n    if (words.some((word) => text.includes(word))) topics.push(topic);\n  }\n  if (!topics.length) topics.push('world');\n  return topics.slice(0, 4);\n};\n\nreturn $input.all().map((item, index) => {\n  const source = sourceItems[index]?.json || {};\n  const candidate = item.json.output && typeof item.json.output === 'object' ? item.json.output : item.json;\n  let summary = typeof candidate.summary === 'string' ? candidate.summary.trim() : '';\n  let topics = Array.isArray(candidate.topics) ? candidate.topics : [];\n  topics = [...new Set(topics.map((topic) => String(topic).toLowerCase().trim()).filter((topic) => allowed.includes(topic)))].slice(0, 4);\n  const fallback = Boolean(item.json.error) || !summary || !topics.length;\n  if (!summary) summary = String(source.description || source.title || '').trim().slice(0, 500);\n  if (!topics.length) topics = inferTopics(`${source.title || ''} ${source.description || ''}`);\n  return { json: {\n    ...source,\n    summary: summary.slice(0, 700),\n    topics_json: JSON.stringify(topics),\n    ai_status: fallback ? 'fallback' : 'groq',\n    updated_at: new Date().toISOString()\n  } };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2448,
+        -80
+      ],
+      "id": "ef7a95e1-44ee-4b94-adce-9fffe390960d",
+      "name": "Prepare AI Enrichment"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "persona_articles",
+          "mode": "name"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "url",
+              "keyValue": "={{ $json.url }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "summary": "={{ $json.summary }}",
+            "topics_json": "={{ $json.topics_json }}",
+            "updated_at": "={{ $json.updated_at }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "published_at",
+              "displayName": "published_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "summary",
+              "displayName": "summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "topics_json",
+              "displayName": "topics_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "fetched_at",
+              "displayName": "fetched_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "updated_at",
+              "displayName": "updated_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2640,
+        -80
+      ],
+      "id": "f1837d12-0862-48ce-87b1-d17b133c4c57",
+      "name": "Update Article AI"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Test News Fetch": {
+      "main": [
+        [
+          {
+            "node": "Ensure Articles Table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ensure Articles Table": {
+      "main": [
+        [
+          {
+            "node": "Define RSS Sources",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Define RSS Sources": {
+      "main": [
+        [
+          {
+            "node": "Read RSS Feeds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read RSS Feeds": {
+      "main": [
+        [
+          {
+            "node": "Normalize Articles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Articles": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicate URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Duplicate URLs": {
+      "main": [
+        [
+          {
+            "node": "Upsert Article",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Upsert Article": {
+      "main": [
+        [
+          {
+            "node": "Article Needs AI?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Article Needs AI?": {
+      "main": [
+        [
+          {
+            "node": "Limit AI Batch",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Limit AI Batch": {
+      "main": [
+        [
+          {
+            "node": "Analyze Article with Groq",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Analyze Article with Groq",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Article Output Schema": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Analyze Article with Groq",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze Article with Groq": {
+      "main": [
+        [
+          {
+            "node": "Prepare AI Enrichment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare AI Enrichment": {
+      "main": [
+        [
+          {
+            "node": "Update Article AI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "saveDataErrorExecution": "none",
+    "saveDataSuccessExecution": "none",
+    "saveManualExecutions": false,
+    "saveExecutionProgress": false
+  },
+  "versionId": "af6c6603-e5ee-499f-8d9c-b7fde9676e74",
+  "meta": {
+    "instanceId": "e9b51ccfda4c94a4db2c09599989fffc064078511bb3a866408c706da5407b1b"
+  },
+  "nodeGroups": [],
+  "id": "mB8n3QiY7R2PzL5k",
+  "tags": []
+}
