@@ -1,0 +1,850 @@
+{
+  "name": "Persona Newsletter",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "workflowInputs",
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "user_id",
+              "type": "string"
+            },
+            {
+              "name": "delivery_mode",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -1060,
+        0
+      ],
+      "id": "1cfe9474-56bd-4d88-bf29-4d12130f973a",
+      "name": "Newsletter Input"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "sdo1Tgds6OFQPJe5",
+          "mode": "list",
+          "cachedResultName": "persona_users",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/sdo1Tgds6OFQPJe5"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "user_id",
+              "condition": "eq",
+              "keyValue": "={{ $json.user_id }}"
+            }
+          ]
+        },
+        "returnAll": false,
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        -840,
+        0
+      ],
+      "id": "f72c4502-630a-4998-8a91-dde4c04fb776",
+      "name": "Get Newsletter User",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const request = $('Newsletter Input').first().json;\nconst row = $input.first()?.json || {};\nconst deliveryMode = String(request.delivery_mode || '').trim().toLowerCase();\nconst requestedUserId = String(request.user_id || '').trim();\n\nlet userTopics = [];\ntry {\n  const parsed = JSON.parse(row.topics_json || '[]');\n  if (Array.isArray(parsed)) {\n    userTopics = [...new Set(parsed.map((topic) => String(topic).trim().toLowerCase()).filter(Boolean))];\n  }\n} catch {}\n\nconst storedQuota = Number(row.articles_per_topic);\nconst articlesPerTopic = Number.isInteger(storedQuota) && storedQuota >= 1 && storedQuota <= 10 ? storedQuota : 3;\nconst email = String(row.email || '').trim();\nconst hasValidEmail = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);\nconst validMode = deliveryMode === 'manual' || deliveryMode === 'scheduled';\nconst sameUser = Boolean(row.user_id) && String(row.user_id) === requestedUserId;\nconst hasConsent = Boolean(String(row.consent_at || '').trim());\nconst scheduledAllowed = deliveryMode !== 'scheduled' || String(row.newsletter_status || '').toLowerCase() === 'active';\nconst eligible = validMode && sameUser && hasValidEmail && hasConsent && userTopics.length > 0 && scheduledAllowed;\n\nreturn [{\n  json: {\n    user_id: requestedUserId,\n    delivery_mode: deliveryMode,\n    username_display: String(row.username_display || 'Persona user'),\n    email,\n    timezone: String(row.timezone || 'Europe/Paris'),\n    user_topics: userTopics,\n    articles_per_topic: articlesPerTopic,\n    newsletter_status: String(row.newsletter_status || ''),\n    consent_at: String(row.consent_at || ''),\n    last_newsletter_sent_at: String(row.last_newsletter_sent_at || ''),\n    eligible,\n    status: eligible ? 'eligible' : 'ineligible',\n    article_count: 0,\n    requested_count: userTopics.length * articlesPerTopic,\n    message: eligible ? 'User is eligible for delivery.' : 'Newsletter delivery is not available for this account.'\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -620,
+        0
+      ],
+      "id": "7bac5542-2eac-4a40-80cb-8093f6ddd3c7",
+      "name": "Validate Newsletter User"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "35294474-ebda-4501-9061-fdcf8966af27",
+              "leftValue": "={{ $json.eligible }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        -400,
+        0
+      ],
+      "id": "e6a17b01-7896-4eb7-8ee1-1c0613e49831",
+      "name": "User Eligible?"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "KOMUmAv8K0fCQ5kW",
+          "mode": "list",
+          "cachedResultName": "persona_articles",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/KOMUmAv8K0fCQ5kW"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": []
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        -180,
+        -100
+      ],
+      "id": "e2199978-f449-4612-9650-e6e3e7513077",
+      "name": "Get Fresh Articles",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const user = $('Validate Newsletter User').first().json;\nconst now = Date.now();\nconst freshAfter = now - 48 * 60 * 60 * 1000;\nconst sevenDaysAfter = now - 7 * 24 * 60 * 60 * 1000;\nconst futureLimit = now + 5 * 60 * 1000;\nconst userTopics = Array.isArray(user.user_topics) ? user.user_topics : [];\nconst quotaValue = Number(user.articles_per_topic);\nconst quota = Number.isInteger(quotaValue) && quotaValue >= 1 && quotaValue <= 10 ? quotaValue : 3;\n\nconst escapeHtml = (value) => String(value ?? '')\n  .replaceAll('&', '&amp;')\n  .replaceAll('<', '&lt;')\n  .replaceAll('>', '&gt;')\n  .replaceAll('\"', '&quot;')\n  .replaceAll(\"'\", '&#39;');\nconst topicLabel = (topic) => topic.charAt(0).toUpperCase() + topic.slice(1);\n\nconst candidates = [];\nfor (const item of $input.all()) {\n  const article = item.json || {};\n  const published = Date.parse(article.published_at || '');\n  if (!Number.isFinite(published) || published < sevenDaysAfter || published > futureLimit) continue;\n  if (!String(article.summary || '').trim()) continue;\n\n  let articleTopics = [];\n  try {\n    const parsed = JSON.parse(article.topics_json || '[]');\n    if (Array.isArray(parsed)) articleTopics = parsed.map((topic) => String(topic).trim().toLowerCase()).filter(Boolean);\n  } catch {\n    continue;\n  }\n  const primaryTopic = userTopics.find((topic) => articleTopics.includes(topic));\n  if (!primaryTopic) continue;\n\n  const url = String(article.url || '').trim();\n  const safeUrl = /^https?:\\/\\/[^\\s<>\"']+$/i.test(url);\n  if (!safeUrl) continue;\n\n  candidates.push({\n    id: article.id,\n    title: String(article.title || 'Untitled'),\n    summary: String(article.summary || ''),\n    source: String(article.source || 'Unknown source'),\n    url,\n    published_at: new Date(published).toISOString(),\n    published,\n    primary_topic: primaryTopic\n  });\n}\n\ncandidates.sort((a, b) => b.published - a.published || String(a.url).localeCompare(String(b.url)));\nconst usedIds = new Set();\nconst usedUrls = new Set();\nconst groups = [];\nconst shortages = {};\n\nfor (const topic of userTopics) {\n  const selected = [];\n  const tiers = [\n    candidates.filter((article) => article.primary_topic === topic && article.published >= freshAfter),\n    candidates.filter((article) => article.primary_topic === topic && article.published < freshAfter),\n  ];\n  for (const tier of tiers) {\n    for (const article of tier) {\n      const idKey = article.id == null ? '' : String(article.id);\n      if ((idKey && usedIds.has(idKey)) || usedUrls.has(article.url)) continue;\n      selected.push(article);\n      if (idKey) usedIds.add(idKey);\n      usedUrls.add(article.url);\n      if (selected.length >= quota) break;\n    }\n    if (selected.length >= quota) break;\n  }\n  groups.push({ topic, requested: quota, articles: selected });\n  if (selected.length < quota) shortages[topic] = quota - selected.length;\n}\n\nconst articleCount = groups.reduce((total, group) => total + group.articles.length, 0);\nconst requestedCount = userTopics.length * quota;\nif (articleCount === 0) {\n  return [{ json: {\n    status: 'no_articles',\n    user_id: user.user_id,\n    delivery_mode: user.delivery_mode,\n    groups,\n    shortages,\n    article_count: 0,\n    requested_count: requestedCount,\n    message: 'No matching articles from the last seven days are available yet.'\n  } }];\n}\n\nlet localDate;\ntry {\n  localDate = new Intl.DateTimeFormat('en-CA', { timeZone: user.timezone, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());\n} catch {\n  localDate = new Date().toISOString().slice(0, 10);\n}\n\nconst sections = groups.map((group) => {\n  const cards = group.articles.map((article) =>\n    '<article style=\"border:1px solid #e5e7eb;border-radius:12px;padding:18px;margin:0 0 16px;background:#ffffff\">' +\n      '<h3 style=\"font-size:20px;margin:0 0 8px\">' + escapeHtml(article.title) + '</h3>' +\n      '<p style=\"color:#4b5563;line-height:1.5\">' + escapeHtml(article.summary) + '</p>' +\n      '<p style=\"font-size:13px;color:#6b7280\">' + escapeHtml(article.source) + '</p>' +\n      '<a href=\"' + escapeHtml(article.url) + '\" style=\"color:#2563eb\">Read the full story</a>' +\n    '</article>').join('');\n  const shortage = group.articles.length < group.requested\n    ? '<p style=\"font-size:13px;color:#92400e\">Only ' + group.articles.length + ' of ' + group.requested + ' recent articles are currently available for this topic.</p>'\n    : '';\n  return '<section><h2 style=\"margin-top:28px\">' + escapeHtml(topicLabel(group.topic)) + ' — ' + group.articles.length + ' of ' + group.requested + '</h2>' + shortage + cards + '</section>';\n}).join('');\n\nconst html = '<!doctype html><html><body style=\"margin:0;background:#f3f4f6;font-family:Arial,sans-serif;color:#111827\"><main style=\"max-width:680px;margin:auto;padding:24px\"><h1>Persona</h1><p>Hello ' + escapeHtml(user.username_display) + ', here is your personalized news selection.</p>' + sections + '<p style=\"font-size:12px;color:#6b7280\">To stop scheduled newsletters, use the unsubscribe command in Persona chat.</p></main></body></html>';\n\nreturn [{ json: {\n  status: 'ready',\n  user_id: user.user_id,\n  delivery_mode: user.delivery_mode,\n  recipient: user.email,\n  subject: 'Persona — your news for ' + localDate,\n  html,\n  groups,\n  shortages,\n  article_count: articleCount,\n  requested_count: requestedCount,\n  selected_article_ids: groups.flatMap((group) => group.articles.map((article) => article.id)),\n  message: 'Newsletter is ready to send.'\n} }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        40,
+        -100
+      ],
+      "id": "bce1565f-38f9-4381-a351-2fbda970bd3c",
+      "name": "Build Personalized Newsletter"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "21ae4f24-f5f6-47ee-90b3-70f87b914422",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "ready",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        1600,
+        -100
+      ],
+      "id": "942937a7-8fe5-4b5d-bf1d-6ed03ec131fe",
+      "name": "Has Matching Articles?"
+    },
+    {
+      "parameters": {
+        "fromEmail": "Persona <case_jackson5851@gmx.com>",
+        "toEmail": "={{ $json.recipient }}",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "html",
+        "html": "={{ $json.html }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1820,
+        -180
+      ],
+      "id": "c9e49c65-1308-4200-b32b-b2af3455370a",
+      "name": "Send Newsletter Email",
+      "onError": "stopWorkflow",
+      "credentials": {
+        "smtp": {
+          "id": "6O1soM0SIwJLK2mF",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "9db28059-cfc1-4313-9d1c-e3847b8e2e5a",
+              "leftValue": "={{ $('Final Newsletter Result').first().json.delivery_mode }}",
+              "rightValue": "scheduled",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        2040,
+        -240
+      ],
+      "id": "8b41672e-9d65-4574-a9ab-b8df51b2d2a3",
+      "name": "Scheduled Delivery?"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "sdo1Tgds6OFQPJe5",
+          "mode": "list",
+          "cachedResultName": "persona_users",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/sdo1Tgds6OFQPJe5"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "user_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Final Newsletter Result').first().json.user_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "last_newsletter_sent_at": "={{ $now.toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "last_newsletter_sent_at",
+              "displayName": "last_newsletter_sent_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2260,
+        -300
+      ],
+      "id": "b9787ea0-44af-40fd-9ced-04ad9bc73dbd",
+      "name": "Update Scheduled Delivery"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f25e66e4-9d14-42b0-8904-5963de8f0b95",
+              "name": "status",
+              "value": "sent",
+              "type": "string"
+            },
+            {
+              "id": "6f8c020a-c6c5-4b77-83a4-53fb38579435",
+              "name": "user_id",
+              "value": "={{ $('Final Newsletter Result').first().json.user_id }}",
+              "type": "string"
+            },
+            {
+              "id": "c1165400-a670-42b7-a93d-f1779be6b53e",
+              "name": "article_count",
+              "value": "={{ $('Final Newsletter Result').first().json.article_count }}",
+              "type": "number"
+            },
+            {
+              "id": "82543d39-7378-43d9-bb46-4872e0851856",
+              "name": "requested_count",
+              "value": "={{ $('Final Newsletter Result').first().json.requested_count }}",
+              "type": "number"
+            },
+            {
+              "id": "c60db209-0547-4874-b440-1bf75c62f3ef",
+              "name": "message",
+              "value": "={{ 'Newsletter sent with ' + $('Final Newsletter Result').first().json.article_count + ' of ' + $('Final Newsletter Result').first().json.requested_count + ' requested articles.' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        2480,
+        -180
+      ],
+      "id": "87cc8a2d-925b-4f68-a1c9-c640901779e9",
+      "name": "Return Sent"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "719f7f59-63e8-4ec9-bc56-f3c67367674e",
+              "name": "status",
+              "value": "no_articles",
+              "type": "string"
+            },
+            {
+              "id": "0855fae9-dfbd-42df-ac41-b51a42906424",
+              "name": "user_id",
+              "value": "={{ $json.user_id }}",
+              "type": "string"
+            },
+            {
+              "id": "8e740264-b516-48cc-8564-d2fa49b98185",
+              "name": "article_count",
+              "value": 0,
+              "type": "number"
+            },
+            {
+              "id": "9e50aa0a-c4da-4d0e-bd64-816c7e2cb8e5",
+              "name": "message",
+              "value": "No fresh matching articles are available yet.",
+              "type": "string"
+            },
+            {
+              "id": "60ae4f50-4ec6-401d-8986-f826131baeab",
+              "name": "requested_count",
+              "value": "={{ $json.requested_count }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1820,
+        20
+      ],
+      "id": "53a09239-ff1e-48dc-8be8-84a68da83888",
+      "name": "Return No Articles"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3b0e681a-d28f-41fe-abbb-7285d6891b99",
+              "name": "status",
+              "value": "ineligible",
+              "type": "string"
+            },
+            {
+              "id": "3455875f-419f-4171-8726-6689bb859fc8",
+              "name": "user_id",
+              "value": "={{ $json.user_id }}",
+              "type": "string"
+            },
+            {
+              "id": "fe87df54-37cd-4d65-b510-8a484a94a7af",
+              "name": "article_count",
+              "value": 0,
+              "type": "number"
+            },
+            {
+              "id": "72c4fa86-c276-4fd6-b8ec-ae755204cde1",
+              "name": "message",
+              "value": "Newsletter delivery is not available for this account.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -180,
+        140
+      ],
+      "id": "f11b3efd-30ec-451a-916f-c2f2812af2b8",
+      "name": "Return Ineligible"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5851e89e-a8d3-4c09-bde1-af1408e1a3d9",
+              "name": "status",
+              "value": "failed",
+              "type": "string"
+            },
+            {
+              "id": "3b7ffea0-eb61-447c-93ac-c8de54a91b1d",
+              "name": "user_id",
+              "value": "={{ $('Final Newsletter Result').first().json.user_id }}",
+              "type": "string"
+            },
+            {
+              "id": "984083da-1a48-4a32-a15e-77c4a95d998a",
+              "name": "article_count",
+              "value": "={{ $('Final Newsletter Result').first().json.article_count }}",
+              "type": "number"
+            },
+            {
+              "id": "9bceba60-11c3-4362-b77d-23fec1d1c1cd",
+              "name": "message",
+              "value": "Newsletter delivery failed temporarily. Please try again later.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        2040,
+        -60
+      ],
+      "id": "9714168a-0d83-476d-a150-19c9ce1e6f0f",
+      "name": "Return Failed"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "dc59b3eb-6f74-41bf-83de-48f6037db8f6",
+              "leftValue": "={{ Object.values($json.shortages || {}).reduce((sum, value) => sum + Number(value || 0), 0) > 0 && !$json.topup_attempted }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        260,
+        -100
+      ],
+      "id": "52460d5f-4a5b-444e-a93d-04f46871a0eb",
+      "name": "Needs Newsletter Top Up?"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const current = $input.first()?.json || {};\nconst totalShortage = Object.values(current.shortages || {}).reduce((sum, value) => sum + Math.max(0, Number(value) || 0), 0);\nconst maxItems = Math.min(20, Math.max(1, Math.ceil(totalShortage * 2)));\nreturn [{ json: { ...current, mode: 'topup', max_items: maxItems, topup_attempted: true } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        -20
+      ],
+      "id": "c79f17ef-2141-4fc1-8d73-2c77d16d8f4a",
+      "name": "Prepare Newsletter Top Up"
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "mB8n3QiY7R2PzL5k",
+          "mode": "list",
+          "cachedResultName": "Persona News Fetch"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "mode": "topup",
+            "max_items": "={{ $json.max_items }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "mode",
+              "displayName": "mode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "max_items",
+              "displayName": "max_items",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number"
+            }
+          ],
+          "attemptToConvertTypes": false
+        },
+        "mode": "once",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.4,
+      "position": [
+        700,
+        -20
+      ],
+      "id": "2f6c7baf-1314-4dac-baa0-28177f691181",
+      "name": "Run News Fetch Top Up",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "KOMUmAv8K0fCQ5kW",
+          "mode": "list",
+          "cachedResultName": "persona_articles",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/KOMUmAv8K0fCQ5kW"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": []
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        920,
+        -20
+      ],
+      "id": "628bf51d-194a-4b1f-8cd4-76569cadf910",
+      "name": "Get Fresh Articles After Top Up",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const user = $('Validate Newsletter User').first().json;\nconst now = Date.now();\nconst freshAfter = now - 48 * 60 * 60 * 1000;\nconst sevenDaysAfter = now - 7 * 24 * 60 * 60 * 1000;\nconst futureLimit = now + 5 * 60 * 1000;\nconst userTopics = Array.isArray(user.user_topics) ? user.user_topics : [];\nconst quotaValue = Number(user.articles_per_topic);\nconst quota = Number.isInteger(quotaValue) && quotaValue >= 1 && quotaValue <= 10 ? quotaValue : 3;\n\nconst escapeHtml = (value) => String(value ?? '')\n  .replaceAll('&', '&amp;')\n  .replaceAll('<', '&lt;')\n  .replaceAll('>', '&gt;')\n  .replaceAll('\"', '&quot;')\n  .replaceAll(\"'\", '&#39;');\nconst topicLabel = (topic) => topic.charAt(0).toUpperCase() + topic.slice(1);\n\nconst candidates = [];\nfor (const item of $input.all()) {\n  const article = item.json || {};\n  const published = Date.parse(article.published_at || '');\n  if (!Number.isFinite(published) || published < sevenDaysAfter || published > futureLimit) continue;\n  if (!String(article.summary || '').trim()) continue;\n\n  let articleTopics = [];\n  try {\n    const parsed = JSON.parse(article.topics_json || '[]');\n    if (Array.isArray(parsed)) articleTopics = parsed.map((topic) => String(topic).trim().toLowerCase()).filter(Boolean);\n  } catch {\n    continue;\n  }\n  const primaryTopic = userTopics.find((topic) => articleTopics.includes(topic));\n  if (!primaryTopic) continue;\n\n  const url = String(article.url || '').trim();\n  const safeUrl = /^https?:\\/\\/[^\\s<>\"']+$/i.test(url);\n  if (!safeUrl) continue;\n\n  candidates.push({\n    id: article.id,\n    title: String(article.title || 'Untitled'),\n    summary: String(article.summary || ''),\n    source: String(article.source || 'Unknown source'),\n    url,\n    published_at: new Date(published).toISOString(),\n    published,\n    primary_topic: primaryTopic\n  });\n}\n\ncandidates.sort((a, b) => b.published - a.published || String(a.url).localeCompare(String(b.url)));\nconst usedIds = new Set();\nconst usedUrls = new Set();\nconst groups = [];\nconst shortages = {};\n\nfor (const topic of userTopics) {\n  const selected = [];\n  const tiers = [\n    candidates.filter((article) => article.primary_topic === topic && article.published >= freshAfter),\n    candidates.filter((article) => article.primary_topic === topic && article.published < freshAfter),\n  ];\n  for (const tier of tiers) {\n    for (const article of tier) {\n      const idKey = article.id == null ? '' : String(article.id);\n      if ((idKey && usedIds.has(idKey)) || usedUrls.has(article.url)) continue;\n      selected.push(article);\n      if (idKey) usedIds.add(idKey);\n      usedUrls.add(article.url);\n      if (selected.length >= quota) break;\n    }\n    if (selected.length >= quota) break;\n  }\n  groups.push({ topic, requested: quota, articles: selected });\n  if (selected.length < quota) shortages[topic] = quota - selected.length;\n}\n\nconst articleCount = groups.reduce((total, group) => total + group.articles.length, 0);\nconst requestedCount = userTopics.length * quota;\nif (articleCount === 0) {\n  return [{ json: {\n    status: 'no_articles',\n    user_id: user.user_id,\n    delivery_mode: user.delivery_mode,\n    groups,\n    shortages,\n    article_count: 0,\n    requested_count: requestedCount,\n    message: 'No matching articles from the last seven days are available yet.'\n  } }];\n}\n\nlet localDate;\ntry {\n  localDate = new Intl.DateTimeFormat('en-CA', { timeZone: user.timezone, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());\n} catch {\n  localDate = new Date().toISOString().slice(0, 10);\n}\n\nconst sections = groups.map((group) => {\n  const cards = group.articles.map((article) =>\n    '<article style=\"border:1px solid #e5e7eb;border-radius:12px;padding:18px;margin:0 0 16px;background:#ffffff\">' +\n      '<h3 style=\"font-size:20px;margin:0 0 8px\">' + escapeHtml(article.title) + '</h3>' +\n      '<p style=\"color:#4b5563;line-height:1.5\">' + escapeHtml(article.summary) + '</p>' +\n      '<p style=\"font-size:13px;color:#6b7280\">' + escapeHtml(article.source) + '</p>' +\n      '<a href=\"' + escapeHtml(article.url) + '\" style=\"color:#2563eb\">Read the full story</a>' +\n    '</article>').join('');\n  const shortage = group.articles.length < group.requested\n    ? '<p style=\"font-size:13px;color:#92400e\">Only ' + group.articles.length + ' of ' + group.requested + ' recent articles are currently available for this topic.</p>'\n    : '';\n  return '<section><h2 style=\"margin-top:28px\">' + escapeHtml(topicLabel(group.topic)) + ' — ' + group.articles.length + ' of ' + group.requested + '</h2>' + shortage + cards + '</section>';\n}).join('');\n\nconst html = '<!doctype html><html><body style=\"margin:0;background:#f3f4f6;font-family:Arial,sans-serif;color:#111827\"><main style=\"max-width:680px;margin:auto;padding:24px\"><h1>Persona</h1><p>Hello ' + escapeHtml(user.username_display) + ', here is your personalized news selection.</p>' + sections + '<p style=\"font-size:12px;color:#6b7280\">To stop scheduled newsletters, use the unsubscribe command in Persona chat.</p></main></body></html>';\n\nreturn [{ json: {\n  status: 'ready',\n  user_id: user.user_id,\n  delivery_mode: user.delivery_mode,\n  recipient: user.email,\n  subject: 'Persona — your news for ' + localDate,\n  html,\n  groups,\n  shortages,\n  article_count: articleCount,\n  requested_count: requestedCount,\n  selected_article_ids: groups.flatMap((group) => group.articles.map((article) => article.id)),\n  message: 'Newsletter is ready to send.'\n} }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1140,
+        -20
+      ],
+      "id": "3dc90518-4785-47d1-b6eb-81a393c31c0c",
+      "name": "Build Personalized Newsletter After Top Up"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "return $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1380,
+        -100
+      ],
+      "id": "ccf3ca84-dd30-4488-a2da-b48b259927ec",
+      "name": "Final Newsletter Result"
+    }
+  ],
+  "pinData": null,
+  "connections": {
+    "Newsletter Input": {
+      "main": [
+        [
+          {
+            "node": "Get Newsletter User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Newsletter User": {
+      "main": [
+        [
+          {
+            "node": "Validate Newsletter User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Newsletter User": {
+      "main": [
+        [
+          {
+            "node": "User Eligible?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "User Eligible?": {
+      "main": [
+        [
+          {
+            "node": "Get Fresh Articles",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Return Ineligible",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Fresh Articles": {
+      "main": [
+        [
+          {
+            "node": "Build Personalized Newsletter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Personalized Newsletter": {
+      "main": [
+        [
+          {
+            "node": "Needs Newsletter Top Up?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Matching Articles?": {
+      "main": [
+        [
+          {
+            "node": "Send Newsletter Email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Return No Articles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Newsletter Email": {
+      "main": [
+        [
+          {
+            "node": "Scheduled Delivery?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scheduled Delivery?": {
+      "main": [
+        [
+          {
+            "node": "Update Scheduled Delivery",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Return Sent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Scheduled Delivery": {
+      "main": [
+        [
+          {
+            "node": "Return Sent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Needs Newsletter Top Up?": {
+      "main": [
+        [
+          {
+            "node": "Prepare Newsletter Top Up",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Final Newsletter Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Newsletter Top Up": {
+      "main": [
+        [
+          {
+            "node": "Run News Fetch Top Up",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run News Fetch Top Up": {
+      "main": [
+        [
+          {
+            "node": "Get Fresh Articles After Top Up",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Fresh Articles After Top Up": {
+      "main": [
+        [
+          {
+            "node": "Build Personalized Newsletter After Top Up",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Personalized Newsletter After Top Up": {
+      "main": [
+        [
+          {
+            "node": "Final Newsletter Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Final Newsletter Result": {
+      "main": [
+        [
+          {
+            "node": "Has Matching Articles?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "none",
+    "saveDataSuccessExecution": "none",
+    "saveManualExecutions": false,
+    "saveExecutionProgress": false
+  },
+  "versionId": "c470b55e-8eef-4837-9046-379f9565de6b",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [],
+  "id": "pNl3tt3rWf000001",
+  "nodeGroups": []
+}

@@ -41,6 +41,10 @@
               "name": "topics_json"
             },
             {
+              "name": "articles_per_topic",
+              "type": "number"
+            },
+            {
               "name": "send_time"
             },
             {
@@ -64,6 +68,9 @@
             },
             {
               "name": "updated_at"
+            },
+            {
+              "name": "last_newsletter_sent_at"
             }
           ]
         },
@@ -190,11 +197,11 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "fd16a4c0-5df0-48fd-8cb5-4d35a04582f7",
+  "versionId": "e13b9a33-e644-4a2f-a67c-bd8763ba6018",
   "meta": {
     "instanceId": "e9b51ccfda4c94a4db2c09599989fffc064078511bb3a866408c706da5407b1b"
   },
-  "nodeGroups": [],
+  "tags": [],
   "id": "KmfWCyTVNLIWUyO5",
-  "tags": []
+  "nodeGroups": []
 }

@@ -224,6 +224,31 @@
                 },
                 "conditions": [
                   {
+                    "id": "11975922-da85-4c67-871b-4b6d6bd0c905",
+                    "leftValue": "={{ $json.command }}",
+                    "rightValue": "articles",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "articles"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
                     "id": "cafc297c-237d-494a-a2d5-40cdfe8058af",
                     "leftValue": "={{ $json.command }}",
                     "rightValue": "schedule",
@@ -349,6 +374,31 @@
                 },
                 "conditions": [
                   {
+                    "id": "7ec82745-b4be-4a88-a451-c2c3df67a7ba",
+                    "leftValue": "={{ $json.command }}",
+                    "rightValue": "newsletter",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "newsletter"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
                     "id": "6738bd74-aea1-4335-92e1-fe087ebfb0d5",
                     "leftValue": "={{ $json.command }}",
                     "rightValue": "delete account",
@@ -381,7 +431,7 @@
     },
     {
       "parameters": {
-        "message": "Available commands:\nregister - create an account\nlogin - sign in\nsettings - view your settings\ntopics - update your interests\nschedule - update delivery time\nemail - update your email\nlogout - sign out\nsubscribe - enable newsletters\nunsubscribe - disable newsletters\ndelete account - delete your data\ncancel - cancel the current action",
+        "message": "Available commands:\nregister - create an account\nlogin - sign in\nsettings - view your settings\ntopics - update your interests\narticles - set articles per topic (1-10)\nschedule - update delivery time\nemail - update your email\nnewsletter - send your personalized newsletter now\nlogout - sign out\nsubscribe - enable newsletters\nunsubscribe - disable newsletters\ndelete account - delete your data\ncancel - cancel the current action",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.chat",
@@ -954,6 +1004,31 @@
                 },
                 "conditions": [
                   {
+                    "id": "0e5adf2a-f5f8-479d-8abb-3ca3660078e4",
+                    "leftValue": "={{ $json.state }}",
+                    "rightValue": "register_article_count",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "register_article_count"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
                     "id": "23fc07ac-e173-4bea-a465-3545a168b5d4",
                     "leftValue": "={{ $json.state }}",
                     "rightValue": "register_time",
@@ -1118,6 +1193,31 @@
               },
               "renameOutput": true,
               "outputKey": "settings_topics"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "dd88970b-b0b9-4500-8c2e-a7e613a5f2dd",
+                    "leftValue": "={{ $json.state }}",
+                    "rightValue": "settings_article_count",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "settings_article_count"
             },
             {
               "conditions": {
@@ -2343,7 +2443,7 @@
           "mappingMode": "defineBelow",
           "value": {
             "authenticated": false,
-            "state": "register_time",
+            "state": "register_article_count",
             "pending_json": "={{ JSON.stringify({   ...JSON.parse($json.pending_json || '{}'),   topics_json: $json.topics_json }) }}",
             "last_seen_at": "={{ $now.toISO() }}",
             "expires_at": "={{ $now.plus({ minutes: 60 }).toISO() }}"
@@ -2848,7 +2948,7 @@
     },
     {
       "parameters": {
-        "message": "={{ \n  'Please confirm your registration and consent to store your email and send newsletters.\\n\\n' +\n  'Username: ' + JSON.parse($json.pending_json).username_display + '\\n' +\n  'Email: ' + JSON.parse($json.pending_json).email + '\\n' +\n  'Topics: ' + JSON.parse(JSON.parse($json.pending_json).topics_json).join(', ') + '\\n' +\n  'Schedule: ' + JSON.parse($json.pending_json).send_time + ' (' +\n  JSON.parse($json.pending_json).timezone + ')\\n\\n' +\n  'Type \"I CONSENT\" to create the account, or type \"cancel\".'\n}}",
+        "message": "={{ \n  'Please confirm your registration and consent to store your email and send newsletters.\\n\\n' +\n  'Username: ' + JSON.parse($json.pending_json).username_display + '\\n' +\n  'Email: ' + JSON.parse($json.pending_json).email + '\\n' +\n  'Topics: ' + JSON.parse(JSON.parse($json.pending_json).topics_json).join(', ') + '\\n' +\n  'Articles per topic: ' + (JSON.parse($json.pending_json).articles_per_topic || 3) + '\\n' +\n  'Schedule: ' + JSON.parse($json.pending_json).send_time + ' (' +\n  JSON.parse($json.pending_json).timezone + ')\\n\\n' +\n  'Type \"I CONSENT\" to create the account, or type \"cancel\".'\n}}",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.chat",
@@ -3058,7 +3158,8 @@
             "failed_login_count": 0,
             "locked_until": "",
             "created_at": "={{ $now.toISO() }}",
-            "updated_at": "={{ $now.toISO() }}"
+            "updated_at": "={{ $now.toISO() }}",
+            "articles_per_topic": "={{ Number(JSON.parse($json.pending_json).articles_per_topic || 3) }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -3129,6 +3230,16 @@
               "defaultMatch": false,
               "display": true,
               "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "articles_per_topic",
+              "displayName": "articles_per_topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
               "readOnly": false,
               "removed": false
             },
@@ -5234,6 +5345,31 @@
                 },
                 "conditions": [
                   {
+                    "id": "2b4433e6-47e4-4d14-9cda-ba76f55009ca",
+                    "leftValue": "={{ $json.command }}",
+                    "rightValue": "articles",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "articles"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
                     "id": "70a2aef1-7c2e-48c8-b308-534a255acc59",
                     "leftValue": "={{ $json.command }}",
                     "rightValue": "schedule",
@@ -5323,6 +5459,31 @@
               },
               "renameOutput": true,
               "outputKey": "unsubscribe"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "07ded4c0-e749-4fea-a31a-f9c696614712",
+                    "leftValue": "={{ $json.command }}",
+                    "rightValue": "newsletter",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "newsletter"
             },
             {
               "conditions": {
@@ -5432,7 +5593,7 @@
     },
     {
       "parameters": {
-        "message": "={{ 'Username: ' + ($json.username_display || '') + '\\nEmail: ' + ($json.email || '') + '\\nTopics: ' + (JSON.parse($json.topics_json || '[]').join(', ') || 'none') + '\\nSchedule: ' + ($json.send_time || '') + ' (' + ($json.timezone || 'Europe/Paris') + ')' + '\\nNewsletter: ' + ($json.newsletter_status || 'inactive') }}",
+        "message": "={{ 'Username: ' + ($json.username_display || '') + '\\nEmail: ' + ($json.email || '') + '\\nTopics: ' + (JSON.parse($json.topics_json || '[]').join(', ') || 'none') + '\\nArticles per topic: ' + ((Number.isInteger(Number($json.articles_per_topic)) && Number($json.articles_per_topic) >= 1 && Number($json.articles_per_topic) <= 10) ? Number($json.articles_per_topic) : 3) + '\\nSchedule: ' + ($json.send_time || '') + ' (' + ($json.timezone || 'Europe/Paris') + ')' + '\\nNewsletter: ' + ($json.newsletter_status || 'inactive') }}",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.chat",
@@ -8114,6 +8275,981 @@
       "id": "435c0d21-a39e-4723-98ec-ed02d8ea59a6",
       "name": "Reply - Delete Account Not Confirmed",
       "webhookId": "f3bd3a3f-5cf5-4684-a05d-4a665927c462"
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "pNl3tt3rWf000001",
+          "mode": "list",
+          "cachedResultName": "Persona Newsletter"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "user_id": "={{ $json.user_id }}",
+            "delivery_mode": "manual"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "delivery_mode",
+              "displayName": "delivery_mode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false
+        },
+        "mode": "once",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.4,
+      "position": [
+        4496,
+        848
+      ],
+      "id": "cab78dad-7c74-4e15-993e-c2a2ff660229",
+      "name": "Send Newsletter Now",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "6bb461bc-3b9c-4c77-aa85-114c7e83fc6e",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "sent",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "sent"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "3a9b67bd-9c9d-4f3d-b043-54011d260f17",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "no_articles",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "no_articles"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "15b3335c-d758-4cee-a18c-715c96edc604",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "ineligible",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ineligible"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 4
+                },
+                "conditions": [
+                  {
+                    "id": "e447cf04-0ba1-4202-8498-9af96d574870",
+                    "leftValue": "={{ $json.status || 'failed' }}",
+                    "rightValue": "failed",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "failed"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.5,
+      "position": [
+        4720,
+        848
+      ],
+      "id": "d21b0ae8-395f-44b0-86da-75f4a2eb3340",
+      "name": "Route Newsletter Result"
+    },
+    {
+      "parameters": {
+        "message": "={{ 'Newsletter sent with ' + Number($json.article_count || 0) + ' of ' + Number($json.requested_count || 0) + ' requested articles.' }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        4960,
+        704
+      ],
+      "id": "acfdcdd0-83f3-4a37-b184-b0e710d6705e",
+      "name": "Reply - Newsletter Sent",
+      "webhookId": "c02189d3-37bb-410d-841a-b74a6b498676"
+    },
+    {
+      "parameters": {
+        "message": "No fresh articles match your topics yet. Please try again later.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        4960,
+        800
+      ],
+      "id": "72843bed-1cef-4c98-8238-2e5a7cfe068e",
+      "name": "Reply - Newsletter No Articles",
+      "webhookId": "fdf47ed4-8ad3-4eb4-9317-24c1d3f75b44"
+    },
+    {
+      "parameters": {
+        "message": "Newsletter delivery is unavailable. Check your email, topics and consent in settings.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        4960,
+        896
+      ],
+      "id": "62632212-e3cc-41b7-9709-ed605632d378",
+      "name": "Reply - Newsletter Ineligible",
+      "webhookId": "7a252771-72bb-43d1-92da-c19bc5c9504b"
+    },
+    {
+      "parameters": {
+        "message": "Newsletter delivery failed temporarily. Please try again later.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        4960,
+        992
+      ],
+      "id": "5693fbce-9795-462d-81b4-f78e7cbc6d05",
+      "name": "Reply - Newsletter Failed",
+      "webhookId": "8bdf9c4d-3f55-46ef-a963-a9dd558dfedf"
+    },
+    {
+      "parameters": {
+        "message": "How many articles per topic would you like? Enter an integer from 1 to 10. Type \"cancel\" to stop.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        2736,
+        960
+      ],
+      "id": "1eb58e9a-b8ae-456c-8585-735f7dd8eaab",
+      "name": "Reply - Registration Article Count",
+      "webhookId": "5704bf4e-3e16-4103-b848-2e8f9aa3b750"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const row = $input.first()?.json || {};\nconst raw = String(row.raw_input ?? '').trim();\nconst parsed = raw === '' ? Number.NaN : Number(raw);\nconst valid = Number.isInteger(parsed) && parsed >= 1 && parsed <= 10;\nreturn [{ json: { ...row, articles_per_topic: Number.isFinite(parsed) ? parsed : null, article_count_valid: valid } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1328,
+        960
+      ],
+      "id": "5376b193-737c-4453-ad0c-366fcaf831fa",
+      "name": "Prepare Registration Article Count"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "dd67c3f8-d32e-414d-bf81-7519e6273789",
+              "leftValue": "={{ $json.article_count_valid }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        1504,
+        960
+      ],
+      "id": "27349f07-3624-45b9-b8fa-745baef065ff",
+      "name": "Registration Article Count Valid?"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "keyValue": "={{ $json.session_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "authenticated": false,
+            "state": "register_time",
+            "pending_json": "={{ JSON.stringify({ ...JSON.parse($json.pending_json || '{}'), articles_per_topic: $json.articles_per_topic }) }}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({ minutes: 60 }).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1680,
+        912
+      ],
+      "id": "0eba042d-2ae4-4e71-9823-ea80ecb2a1e5",
+      "name": "Save Registration Article Count"
+    },
+    {
+      "parameters": {
+        "message": "Invalid number. Enter a whole number from 1 to 10, or type \"cancel\".",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        1680,
+        1040
+      ],
+      "id": "0694b0fe-0411-442f-8ce4-e6d1b1be1258",
+      "name": "Reply - Invalid Registration Article Count",
+      "webhookId": "464279ec-f5e7-4096-98fa-14d0779c5a35"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "keyValue": "={{ $json.session_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "authenticated": true,
+            "state": "settings_article_count",
+            "pending_json": "{}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({ minutes: 60 }).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        4496,
+        160
+      ],
+      "id": "add99db4-7994-41ed-8115-adcb59610732",
+      "name": "Start Settings Article Count"
+    },
+    {
+      "parameters": {
+        "message": "Enter the number of articles per topic, from 1 to 10. Type \"cancel\" to stop.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        4672,
+        160
+      ],
+      "id": "95d78632-d225-4b97-8694-d21aecb5a169",
+      "name": "Reply - Settings Article Count Prompt",
+      "webhookId": "1241ec0b-021b-4553-971e-b2059509ac41"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const row = $input.first()?.json || {};\nconst raw = String(row.raw_input ?? '').trim();\nconst parsed = raw === '' ? Number.NaN : Number(raw);\nconst valid = Number.isInteger(parsed) && parsed >= 1 && parsed <= 10;\nreturn [{ json: { ...row, articles_per_topic: Number.isFinite(parsed) ? parsed : null, article_count_valid: valid } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1504,
+        1440
+      ],
+      "id": "c8e65625-7e10-4f64-aa4a-216bd999adec",
+      "name": "Prepare Settings Article Count"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 4
+          },
+          "conditions": [
+            {
+              "id": "5ab255a2-7f4e-49e3-8b7a-ad8bb5ea6166",
+              "leftValue": "={{ $json.article_count_valid }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        1680,
+        1440
+      ],
+      "id": "293c61df-be51-4ec6-8350-307d30e6f284",
+      "name": "Settings Article Count Valid?"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "sdo1Tgds6OFQPJe5",
+          "mode": "list",
+          "cachedResultName": "persona_users",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/sdo1Tgds6OFQPJe5"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "user_id",
+              "keyValue": "={{ $json.user_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "articles_per_topic": "={{ $json.articles_per_topic }}",
+            "updated_at": "={{ $now.toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "username_normalized",
+              "displayName": "username_normalized",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "username_display",
+              "displayName": "username_display",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "password_salt",
+              "displayName": "password_salt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "password_hash",
+              "displayName": "password_hash",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "topics_json",
+              "displayName": "topics_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "articles_per_topic",
+              "displayName": "articles_per_topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "send_time",
+              "displayName": "send_time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "timezone",
+              "displayName": "timezone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "newsletter_status",
+              "displayName": "newsletter_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "consent_at",
+              "displayName": "consent_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "failed_login_count",
+              "displayName": "failed_login_count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "locked_until",
+              "displayName": "locked_until",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "updated_at",
+              "displayName": "updated_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1856,
+        1392
+      ],
+      "id": "2d84f3b5-aa63-4b9f-b592-e2ad39d64e5e",
+      "name": "Update Settings Article Count"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "hrY4HiuKDV7xitpi",
+          "mode": "list",
+          "cachedResultName": "persona_sessions",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/hrY4HiuKDV7xitpi"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "session_id",
+              "keyValue": "={{ $('Prepare Settings Article Count').item.json.session_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "authenticated": true,
+            "state": "idle",
+            "pending_json": "{}",
+            "last_seen_at": "={{ $now.toISO() }}",
+            "expires_at": "={{ $now.plus({ minutes: 60 }).toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "state",
+              "displayName": "state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "pending_json",
+              "displayName": "pending_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_seen_at",
+              "displayName": "last_seen_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "expires_at",
+              "displayName": "expires_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "authenticated",
+              "displayName": "authenticated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        2032,
+        1408
+      ],
+      "id": "bc30761c-5af6-448a-ae37-0da2242f0a8f",
+      "name": "Finish Settings Article Count"
+    },
+    {
+      "parameters": {
+        "message": "={{ 'Articles per topic updated: ' + Number($('Prepare Settings Article Count').item.json.articles_per_topic) }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        2208,
+        1376
+      ],
+      "id": "fa244ea6-0916-4153-99d6-c400e78b8b03",
+      "name": "Reply - Settings Article Count Success",
+      "webhookId": "5876a8c6-aa30-45fb-9a0a-92a6cda9cd8a"
+    },
+    {
+      "parameters": {
+        "message": "Invalid number. Enter a whole number from 1 to 10, or type \"cancel\".",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        1856,
+        1504
+      ],
+      "id": "32f1f997-a703-406d-90d6-ad8047f1195e",
+      "name": "Reply - Invalid Settings Article Count",
+      "webhookId": "dc3f9e48-a28f-45de-88a0-49a325752082"
     }
   ],
   "pinData": {},
@@ -8194,7 +9330,21 @@
         ],
         [
           {
+            "node": "Authenticated Command?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
             "node": "Logout Authenticated?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Authenticated Command?",
             "type": "main",
             "index": 0
           }
@@ -8341,6 +9491,13 @@
         ],
         [
           {
+            "node": "Prepare Registration Article Count",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
             "node": "Time Valid?",
             "type": "main",
             "index": 0
@@ -8384,6 +9541,13 @@
         [
           {
             "node": "Prepare Settings Topics",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Settings Article Count",
             "type": "main",
             "index": 0
           }
@@ -8639,7 +9803,7 @@
       "main": [
         [
           {
-            "node": "Reply - Registration Time",
+            "node": "Reply - Registration Article Count",
             "type": "main",
             "index": 0
           }
@@ -9388,6 +10552,13 @@
         ],
         [
           {
+            "node": "Start Settings Article Count",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
             "node": "Start Settings Schedule",
             "type": "main",
             "index": 0
@@ -9410,6 +10581,13 @@
         [
           {
             "node": "Deactivate Newsletter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Newsletter Now",
             "type": "main",
             "index": 0
           }
@@ -9502,6 +10680,158 @@
           }
         ]
       ]
+    },
+    "Send Newsletter Now": {
+      "main": [
+        [
+          {
+            "node": "Route Newsletter Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Newsletter Result": {
+      "main": [
+        [
+          {
+            "node": "Reply - Newsletter Sent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply - Newsletter No Articles",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply - Newsletter Ineligible",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply - Newsletter Failed",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply - Newsletter Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Registration Article Count": {
+      "main": [
+        [
+          {
+            "node": "Registration Article Count Valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registration Article Count Valid?": {
+      "main": [
+        [
+          {
+            "node": "Save Registration Article Count",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply - Invalid Registration Article Count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Registration Article Count": {
+      "main": [
+        [
+          {
+            "node": "Reply - Registration Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start Settings Article Count": {
+      "main": [
+        [
+          {
+            "node": "Reply - Settings Article Count Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Settings Article Count": {
+      "main": [
+        [
+          {
+            "node": "Settings Article Count Valid?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings Article Count Valid?": {
+      "main": [
+        [
+          {
+            "node": "Update Settings Article Count",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply - Invalid Settings Article Count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Settings Article Count": {
+      "main": [
+        [
+          {
+            "node": "Finish Settings Article Count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Finish Settings Article Count": {
+      "main": [
+        [
+          {
+            "node": "Reply - Settings Article Count Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -9513,12 +10843,12 @@
     "saveManualExecutions": false,
     "saveExecutionProgress": false
   },
-  "versionId": "582beed9-30f2-4c0d-a0f1-0ea757cbf6ca",
+  "versionId": "6e0164a8-e1a5-412e-a81a-3c64d3ae4c13",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "e9b51ccfda4c94a4db2c09599989fffc064078511bb3a866408c706da5407b1b"
   },
-  "nodeGroups": [],
+  "tags": [],
   "id": "9yHWHjPbeqQ9mGl0",
-  "tags": []
+  "nodeGroups": []
 }

@@ -1,0 +1,200 @@
+{
+  "name": "Persona Newsletter Scheduler",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 1
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -520,
+        0
+      ],
+      "id": "dff2cab9-b00c-4652-af8e-bcdab44d558d",
+      "name": "Every Minute"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "sdo1Tgds6OFQPJe5",
+          "mode": "list",
+          "cachedResultName": "persona_users",
+          "cachedResultUrl": "/projects/05IloOpHGZuHiXP0/datatables/sdo1Tgds6OFQPJe5"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "newsletter_status",
+              "condition": "eq",
+              "keyValue": "active"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        -300,
+        0
+      ],
+      "id": "a1168e65-d575-4933-b596-3764f89b4131",
+      "name": "Get Active Subscribers"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const now = new Date();\nconst emailPattern = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\nconst timePattern = /^([01]\\d|2[0-3]):[0-5]\\d$/;\n\nfunction zonedParts(date, timeZone) {\n  const formatter = new Intl.DateTimeFormat('en-CA', {\n    timeZone,\n    year: 'numeric',\n    month: '2-digit',\n    day: '2-digit',\n    hour: '2-digit',\n    minute: '2-digit',\n    hourCycle: 'h23'\n  });\n  return Object.fromEntries(formatter.formatToParts(date).filter((part) => part.type !== 'literal').map((part) => [part.type, part.value]));\n}\n\nconst due = [];\nfor (const item of $input.all()) {\n  const user = item.json || {};\n  const userId = String(user.user_id || '').trim();\n  const email = String(user.email || '').trim();\n  const sendTime = String(user.send_time || '').trim();\n  const timeZone = String(user.timezone || '').trim();\n  const consent = String(user.consent_at || '').trim();\n  if (!userId || !emailPattern.test(email) || !timePattern.test(sendTime) || !timeZone || !consent) continue;\n\n  let local;\n  try {\n    local = zonedParts(now, timeZone);\n  } catch {\n    continue;\n  }\n  const localTime = `${local.hour}:${local.minute}`;\n  const localDate = `${local.year}-${local.month}-${local.day}`;\n  if (localTime !== sendTime) continue;\n\n  const lastSentRaw = String(user.last_newsletter_sent_at || '').trim();\n  if (lastSentRaw) {\n    const lastSent = new Date(lastSentRaw);\n    if (Number.isFinite(lastSent.getTime())) {\n      const sentLocal = zonedParts(lastSent, timeZone);\n      const sentLocalDate = `${sentLocal.year}-${sentLocal.month}-${sentLocal.day}`;\n      if (sentLocalDate === localDate) continue;\n    }\n  }\n\n  due.push({ json: { user_id: userId, delivery_mode: 'scheduled', scheduled_local_date: localDate } });\n}\n\nreturn due;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        0
+      ],
+      "id": "72219a32-027f-42ae-ab0c-c63e9764308d",
+      "name": "Select Due Users"
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "pNl3tt3rWf000001",
+          "mode": "list",
+          "cachedResultName": "Persona Newsletter"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "user_id": "={{ $json.user_id }}",
+            "delivery_mode": "scheduled"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "delivery_mode",
+              "displayName": "delivery_mode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.4,
+      "position": [
+        160,
+        0
+      ],
+      "id": "59680057-b874-4ff4-a14b-cbfe2ce1ab8e",
+      "name": "Send Due Newsletters",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const result = $json || {};\nif (result.status) return { json: result };\nlet userId = String(result.user_id || '').trim();\nif (!userId) {\n  try { userId = String($('Select Due Users').item.json.user_id || '').trim(); } catch {}\n}\nreturn { json: {\n  status: 'failed',\n  user_id: userId,\n  article_count: 0,\n  message: 'Newsletter delivery failed temporarily. Please try again later.'\n} };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        0
+      ],
+      "id": "80b3c891-e754-42d2-8b0c-0acac78a3f65",
+      "name": "Normalize Delivery Result"
+    }
+  ],
+  "pinData": null,
+  "connections": {
+    "Every Minute": {
+      "main": [
+        [
+          {
+            "node": "Get Active Subscribers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Active Subscribers": {
+      "main": [
+        [
+          {
+            "node": "Select Due Users",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select Due Users": {
+      "main": [
+        [
+          {
+            "node": "Send Due Newsletters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Due Newsletters": {
+      "main": [
+        [
+          {
+            "node": "Normalize Delivery Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Paris",
+    "saveDataErrorExecution": "none",
+    "saveDataSuccessExecution": "none",
+    "saveManualExecutions": false,
+    "saveExecutionProgress": false
+  },
+  "versionId": "7fac1c9c-3f8f-460a-b60b-80a20a6d4d96",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [],
+  "id": "pNlSch3dul3r0001",
+  "nodeGroups": []
+}
